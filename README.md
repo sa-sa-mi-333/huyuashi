@@ -85,4 +85,4 @@ MVPリリース
 [figma](https://www.figma.com/design/72tcu2TC9kywHrBiM5Tw8D/%E3%81%B5%E3%82%86%E3%81%82%E3%81%97-%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?node-id=0-1&t=4a4ZDT167KoxGeQB-1)
 
 ## ER図
-[![Image from Gyazo](https://i.gyazo.com/937c327703f737c10f18cfbd5a5a0746.png)](https://gyazo.com/937c327703f737c10f18cfbd5a5a0746)
+[![Image from Gyazo](https://i.gyazo.com/64452e0be9cebdf33de47f2831d3876c.png)](https://gyazo.com/64452e0be9cebdf33de47f2831d3876c)
