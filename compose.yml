@@ -1,0 +1,35 @@
+services:
+  db:
+    image: postgres
+    environment:
+    # 開発環境のusername,password,db名はここで設定する
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: myapp_development
+      TZ: Asia/Tokyo
+    ports:
+      - 5432:5432
+    volumes:
+      # DBのデータを永続化する
+      - db_volumes:/var/lib/postgresql
+  web:
+    build:
+      context: .
+      # 開発環境用のDockerfileを参照する
+      dockerfile: Dockerfile.dev
+    ports: # 開発環境用のポート番号にする
+      - "3000:3000"
+    volumes:
+      - .:/myapp
+      # インストールしたgemパッケージを永続化する
+      - bundle_data:/usr/local/bundle:cached
+    depends_on:
+      - db
+    environment:
+      - TZ=Asia/Tokyo
+      - RAILS_ENV=development
+      # 接続するデータベースを指定する
+      - DATABASE_URL=postgresql://postgres:password@db:5432/myapp_development
+volumes:
+  db_volumes:
+  bundle_data:
