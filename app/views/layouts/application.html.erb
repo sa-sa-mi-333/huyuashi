@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Myapp" %></title>
+    <title><%= content_for(:title) || "ふゆあし" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
+    <!-- CSPを記載する -->
     <%= csp_meta_tag %>
 
     <%= yield :head %>
@@ -23,8 +24,13 @@
   </head>
 
   <body>
+    <!-- ヘッダーをここに追加する -->
+
+    <!-- メインコンテンツはyieldで参照 -->
     <main class="container mx-auto mt-28 px-5 flex">
       <%= yield %>
     </main>
+
+    <!-- フッターをここに追加する -->
   </body>
 </html>
