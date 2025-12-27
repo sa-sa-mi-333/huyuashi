@@ -6,7 +6,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
-    <!-- CSPを記載する -->
     <%= csp_meta_tag %>
 
     <%= yield :head %>
@@ -23,14 +22,16 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="bg-[#f6f5fa]">
     <!-- ヘッダーをここに追加する -->
+    <%= render 'shared/header' %>
 
     <!-- メインコンテンツはyieldで参照 -->
-    <main class="container mx-auto mt-28 px-5 flex">
+    <main class="pt-20 pb-20">
       <%= yield %>
-    </main>
+    </main> 
 
     <!-- フッターをここに追加する -->
+    <%= render 'shared/footer' %>
   </body>
 </html>

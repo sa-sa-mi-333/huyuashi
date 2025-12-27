@@ -17,6 +17,9 @@ services:
       context: .
       # 開発環境用のDockerfileを参照する
       dockerfile: Dockerfile.dev
+    # exited with code 0対策
+    stdin_open: true
+    tty: true
     ports: # 開発環境用のポート番号にする
       - "3000:3000"
     volumes:
