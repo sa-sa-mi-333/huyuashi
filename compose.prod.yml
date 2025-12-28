@@ -1,0 +1,41 @@
+services:
+  db:
+    image: postgres
+    environment:
+    # PostgreSQLはパスワードの指定が必須となる
+    # 本番環境では別のDBに接続するためこの設定は無視される
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: myapp_development
+      TZ: Asia/Tokyo
+    ports:
+      - 5432:5432
+    volumes:
+      # DBのデータを永続化する
+      - db_volumes:/var/lib/postgresql
+  web:
+    build:
+      context: .
+      # 本番環境用のDockerfileを参照する
+      dockerfile: Dockerfile.prod
+    # exited with code 0対策
+    stdin_open: true
+    tty: true
+#    ports: # 本番環境ではrender側でポート番号を決定するため指定は不要
+#      - "80:80"
+    volumes:
+      - .:/myapp
+      # インストールしたgemパッケージを永続化する
+      - bundle_data:/usr/local/bundle:cached
+    depends_on:
+      - db
+    environment:
+      - RAILS_ENV=production
+      # 接続するデータベースを変数で指定し、キー設定も追加する
+      - DATABASE_URL=${DATABASE_URL} # renderで設定
+      - SECRET_KEY_BASE=${SECRET_KEY_BASE} # renderで設定
+      - TZ=Asia/Tokyo
+
+volumes:
+  db_volumes:
+  bundle_data:
