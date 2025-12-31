@@ -5,5 +5,5 @@ ja:
       user:
         email: "メールアドレス"
         password: "パスワード"
-        paassword_confirmation: "パスワード確認"
+        password_confirmation: "パスワード(確認用)"
         remember_me: "ログイン状態を保持する"

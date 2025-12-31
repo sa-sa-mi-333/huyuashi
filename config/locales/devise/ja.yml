@@ -1,0 +1,21 @@
+# Additional translations at https://github.com/heartcombo/devise/wiki/I18n
+
+ja:
+  devise:
+    # 新規登録画面
+    registrations:
+      new:
+        sign_up: "新規登録"
+    # ログイン画面
+    sessions:
+      new:
+        sign_in: "ログイン"
+    # パスワードリセットリクエスト画面
+    passwords:
+      new:
+        send_me_reset_password_instructions: "パスワードリセット用メールを送信"
+    # 共通部分
+    shared:
+      links:
+        sign_up: "新規登録"
+        google_oauth: "Googleアカウントでログイン"
