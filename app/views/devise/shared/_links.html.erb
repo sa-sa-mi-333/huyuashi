@@ -1,6 +1,13 @@
-<!-- ログイン画面以外の場合、リンクとして「ログイン」を表示 -->
+<!-- ログイン画面以外の場合、リンクとして「ログイン」と「Google認証でログイン」を表示 -->
 <%- if controller_name != 'sessions' %>
-  <%= link_to "ログイン", new_session_path(resource_name), class: "btn-primary" %><br>
+  <div class="inline-block w-full">
+    <span class="text-[#004681]">登録済みの方は</span>
+    <span><%= link_to "ログイン", new_session_path(resource_name), class:"btn-primary" %></span>
+  </div>
+  <div class="inline-block w-full mt-5">
+    <span class="text-[#004681]">または</span>
+    <span><%= link_to t("devise.shared.links.google_oauth"), "#", class:"btn-thirdary" %></span>
+  </div>
 <% end %>
 
 <!-- 新規登録画面以外の場合、リンクとして「新規登録」を表示 -->
@@ -9,25 +16,24 @@
     <span class="text-[#004681]">登録がまだの方は</span>
     <span><%= link_to "新規登録", new_registration_path(resource_name), class:"btn-primary" %></span>
   </div>
-  <div class="inline-block w-full my-5">
+  <div class="inline-block w-full mt-5">
     <span class="text-[#004681]">または</span>
     <span><%= link_to t("devise.shared.links.google_oauth"), "#", class:"btn-thirdary" %></span>
   </div>
 <% end %>
 
-<!-- パスワードリセット画面以外の場合、リンクとして「パスワードを忘れた場合」を表示 -->
+<!--
 <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
   <%= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name) %><br>
 <% end %>
 
-<!-- ロック解除画面以外の場合、リンクとして「アカウントロック解除」を表示 -->
 <%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
   <%= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name) %><br>
 <% end %>
 
-<!-- 外部認証プロバイダーが設定されている場合、各プロバイダーへのサインインボタンを表示 -->
 <%- if devise_mapping.omniauthable? %>
   <%- resource_class.omniauth_providers.each do |provider| %>
     <%= button_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), data: { turbo: false } %><br>
   <% end %>
 <% end %>
+-->
