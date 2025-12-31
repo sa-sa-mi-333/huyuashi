@@ -31,3 +31,9 @@
     @apply mx-auto max-w-md text-left block text-sm font-medium text-gray-700 mb-1;
   }
 }
+
+/* aタグ用のスタイル */
+.atag {
+  @apply text-[#810002] font-semibold hover:underline;
+}
+
