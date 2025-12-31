@@ -2,6 +2,7 @@
 <html>
   <head>
     <title><%= content_for(:title) || "ふゆあし" %></title>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
@@ -28,18 +29,18 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="bg-[#f6f5fa] noto-sans-jp-600">
+  <body class="container bg-[#f6f5fa]">
     <!-- ヘッダーをここに追加する -->
-    <%= render 'shared/header' %>
+    <div><%= render 'shared/header' %></div>
     <!-- フラッシュメッセージをここに追加する -->
-    <%= render 'shared/flash_messages' %>
+    <div class="mt-20"><%= render 'shared/flash_messages' %></div>
 
     <!-- メインコンテンツはyieldで参照 -->
-    <main class="pt-20 pb-20">
-      <%= yield %>
+    <main class="mt-5">
+      <div><%= yield %></div>
     </main> 
 
     <!-- フッターをここに追加する -->
-    <%= render 'shared/footer' %>
+    <div><%= render 'shared/footer' %></div>
   </body>
 </html>

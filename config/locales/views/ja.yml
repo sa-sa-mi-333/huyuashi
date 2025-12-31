@@ -3,4 +3,5 @@ ja:
   views:
     drafttop:
       index:
+        title: "トップページ（暫定版）"
         word: "i18nを適用した暫定版のトップページです"

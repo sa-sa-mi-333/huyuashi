@@ -1,29 +1,39 @@
-<h2>Sign up</h2>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+<h1 class="ml-5 text-bold">新規登録ページ</h1>
+<!-- 新規登録画面の入力フォームを配置 -->
+<div container class="mt-5 mx-auto max-w-md p-6 bg-white shadow-md">  
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <!-- ユーザーネームを一緒に登録する テーブル作成まだ -->
+    <!-- メールアドレス -->
+    <div class="field mb-5">
+      <%= f.label :email, class:"form-label my-2" %>
+      <%= f.email_field :email, class:"form-input", autofocus: true, autocomplete: "email" %>
+    </div>
+    <!-- パスワード -->
+    <div class="field mb-5">
+      <%= f.label :password, class:"form-label my-2" %>
+      <%= f.password_field :password, class:"form-input", autocomplete: "current-password" %>
+    </div>
+    <!-- パスワード確認 -->
+    <div class="field mb-5">
+      <%= f.label :password_confirmation, class:"form-label my-2" %>
+      <%= f.password_field :password_confirmation, class:"form-input" %>
+    </div>
+    <!-- ログイン状態の保持 -->
+    <% if devise_mapping.rememberable? %>
+      <div class="field text-sm font-medium text-gray-700 my-5">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me %>
+      </div>
+    <% end %>
+    <span class="inline-block text-[#004681] mb-1">
+      <a class="atag">プライバシーポリシー</a>と<a class="atag">利用規約</a>に同意していただき</span>
+    <!-- 新規登録ボタン -->
+    <div class="actions btn-secondary">
+      <%= f.submit t("devise.registrations.new.sign_up") %>
+    </div>
+  <% end %>
+</div>
+    <!-- ログインページへのリンクは別パーシャルで管理する -->
+<div container class="mx-auto mb-5 max-w-md p-6 bg-white shadow-md">
+  <%= render "devise/shared/links" %>
+</div>
