@@ -1,3 +1,9 @@
 # モデルに関連する語句の日本語化対応を行う
 ja:
   activerecord:
+    attributes:
+      user:
+        email: "メールアドレス"
+        password: "パスワード"
+        paassword_confirmation: "パスワード確認"
+        remember_me: "ログイン状態を保持する"
