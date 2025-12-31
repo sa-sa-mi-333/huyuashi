@@ -29,14 +29,14 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="bg-[#f6f5fa]">
+  <body class="container bg-[#f6f5fa]">
     <!-- ヘッダーをここに追加する -->
-    <div><%= render 'shared/header' %><div>
+    <div><%= render 'shared/header' %></div>
     <!-- フラッシュメッセージをここに追加する -->
-    <div><%= render 'shared/flash_messages' %></div>
+    <div class="mt-20"><%= render 'shared/flash_messages' %></div>
 
     <!-- メインコンテンツはyieldで参照 -->
-    <main class="pt-30 pb-30 p-10">
+    <main class="mt-5">
       <div><%= yield %></div>
     </main> 
 
