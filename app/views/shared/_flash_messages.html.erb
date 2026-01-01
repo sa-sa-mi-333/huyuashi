@@ -1,2 +1,5 @@
-フラッシュ<br>
-メッセージを表示する部分です
+<!-- キーとバリューを取得してフラッシュメッセージを表示 -->
+<% flash.each do |key, value| %>
+  <!-- div要素を生成 -->
+  <%= content_tag(:div, value, class: "alert alert-#{key}") %>
+<% end %>
