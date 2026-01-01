@@ -1,3 +1,11 @@
+/* フォント指定 */
+body {
+  font-family: "Noto Sans JP", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
 @import "tailwindcss";
 
 @layer components {

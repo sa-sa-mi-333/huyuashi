@@ -8,18 +8,3 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
-
-
-.noto-sans-jp-400 {
-  font-family: "Noto Sans JP", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.noto-sans-jp-600 {
-  font-family: "Noto Sans JP", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 600;
-  font-style: normal;
-}
