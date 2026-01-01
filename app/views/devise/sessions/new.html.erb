@@ -5,12 +5,12 @@
     <!-- メールアドレス -->
     <div class="field mb-5">
       <%= f.label :email, class:"form-label my-2" %>
-      <%= f.email_field :email, class:"form-input", autofocus: true, autocomplete: "email" %>
+      <%= f.email_field :email, class:"form-input", autofocus: true, autocomplete: "email", placeholder: "email@example.com" %>
     </div>
     <!-- パスワード -->
     <div class="field mb-5">
       <%= f.label :password, class:"form-label my-2" %>
-      <%= f.password_field :password, class:"form-input", autocomplete: "current-password" %>
+      <%= f.password_field :password, class:"form-input", autocomplete: "current-password", placeholder: "6文字以上で入力してください" %>
     </div>
     <!-- ログイン状態の保持 -->
     <% if devise_mapping.rememberable? %>
