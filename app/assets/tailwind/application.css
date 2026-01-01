@@ -45,3 +45,10 @@ body {
   @apply text-[#810002] font-semibold hover:underline;
 }
 
+/* フラッシュメッセージ用のスタイル */
+.alert-notice {
+  @apply bg-[#d5f2dc] text-[#0f8100] p-1;
+}
+.alert-alert {
+  @apply bg-[#f2d5d5] text-[#810002] p-1;
+}

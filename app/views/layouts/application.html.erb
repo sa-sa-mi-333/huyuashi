@@ -30,18 +30,22 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="container bg-[#f6f5fa]">
-    <!-- ヘッダーをここに追加する -->
-    <div><%= render 'shared/header' %></div>
-    <!-- フラッシュメッセージをここに追加する -->
-    <div class="mt-20"><%= render 'shared/flash_messages' %></div>
+  <body class="container w-full mx-0 bg-[#f6f5fa]">
+    <header class="fixed top-0 left-0 w-full">
+      <!-- ヘッダーをここに追加する -->
+      <%= render 'shared/header' %>
+      <!-- フラッシュメッセージをここに追加する -->
+      <%= render 'shared/flash_messages' %>
+    </header>
 
-    <!-- メインコンテンツはyieldで参照 -->
-    <main class="my-auto">
-      <div><%= yield %></div>
+    <!-- メインコンテンツはyieldで参照 画面中央に配置する -->
+    <main class="flex h-screen justify-center items-start">
+      <div class="my-auto"><%= yield %></div>
     </main> 
 
-    <!-- フッターをここに追加する -->
-    <div><%= render 'shared/footer' %></div>
+    <footer class="fixed bottom-0 left-0 w-full">
+      <!-- フッターをここに追加する -->
+      <%= render 'shared/footer' %>
+    </footer>
   </body>
 </html>
