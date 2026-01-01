@@ -19,5 +19,4 @@ Rails.application.routes.draw do
   authenticated :user do
     root to: "static_pages#after_login", as: :authenticated_root
   end
-  
 end

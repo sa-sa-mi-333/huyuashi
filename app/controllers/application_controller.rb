@@ -9,6 +9,6 @@ class ApplicationController < ActionController::Base
 
   # devise用ストロングパラメータの設定 sign_up時にnameカラムキーを追加する
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [ :name ])
   end
 end

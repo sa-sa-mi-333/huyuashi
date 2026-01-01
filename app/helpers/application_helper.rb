@@ -1,8 +1,8 @@
 module ApplicationHelper
-    #deviseのresource_nameを定義する
+    # deviseのresource_nameを定義する
     def resource_name
         :user
-    end    
+    end
     def resource
         @resource ||= User.new
     end
