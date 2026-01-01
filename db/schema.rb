@@ -16,7 +16,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_31_161822) do
 
   create_table "user_statuses", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.string "name"
+    t.string "name", default: "名無しの雪だるま"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_user_statuses_on_user_id"
