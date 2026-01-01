@@ -2,21 +2,25 @@
 <!-- 新規登録画面の入力フォームを配置 -->
 <div container class="mt-5 mx-auto max-w-md p-6 bg-white shadow-md">  
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-    <!-- ユーザーネームを一緒に登録する テーブル作成まだ -->
+    <!-- ユーザーネームを別テーブルに登録する -->
+    <div class="field mb-5">
+      <%= f.label :name, class:"form-label my-2" %>
+      <%= f.text_field :name, class:"form-input", autofocus: true, autocomplete: "name", placeholder: "名無しの雪だるま" %>
+    </div>
     <!-- メールアドレス -->
     <div class="field mb-5">
       <%= f.label :email, class:"form-label my-2" %>
-      <%= f.email_field :email, class:"form-input", autofocus: true, autocomplete: "email" %>
+      <%= f.email_field :email, class:"form-input", autocomplete: "email", placeholder: "email@example.com" %>
     </div>
     <!-- パスワード -->
     <div class="field mb-5">
       <%= f.label :password, class:"form-label my-2" %>
-      <%= f.password_field :password, class:"form-input", autocomplete: "current-password" %>
+      <%= f.password_field :password, class:"form-input", autocomplete: "current-password", placeholder: "6文字以上で入力してください" %>
     </div>
     <!-- パスワード確認 -->
     <div class="field mb-5">
       <%= f.label :password_confirmation, class:"form-label my-2" %>
-      <%= f.password_field :password_confirmation, class:"form-input" %>
+      <%= f.password_field :password_confirmation, class:"form-input", placeholder: "同じパスワードを入力してください" %>
     </div>
     <!-- ログイン状態の保持 -->
     <% if devise_mapping.rememberable? %>
@@ -33,7 +37,7 @@
     </div>
   <% end %>
 </div>
-    <!-- ログインページへのリンクは別パーシャルで管理する -->
+<!-- ログインページへのリンクは別パーシャルで管理する -->
 <div container class="mx-auto mb-5 max-w-md p-6 bg-white shadow-md">
   <%= render "devise/shared/links" %>
 </div>
