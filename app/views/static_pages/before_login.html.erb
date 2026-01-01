@@ -1,0 +1,13 @@
+<div container class="mx-auto mb-5 max-w-md p-6 bg-white shadow-md">
+  <div class="text-[#000000] text-5xl text-center">ふ ゆ<br>あ し</div>
+  <div class="text-[#004681] text-center">暫定版トップページ</div>
+  <div class="text-[#004681] text-center">雪かき作業の記録ができるようになります<br>ご利用には新規登録/ログインが必要です</div>
+  <!-- ログインページへ -->
+  <div class="inline-block w-full my-5">
+    <%= link_to "ログインページへ", new_session_path(resource_name), class:"btn-primary" %>
+  </div>
+  <!-- 新規登録ページへ -->
+  <div class="inline-block w-full my-5">
+    <%= link_to "新規登録ページへ", new_registration_path(resource_name), class:"btn-primary" %>
+  </div>
+</div>

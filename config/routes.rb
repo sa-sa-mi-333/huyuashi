@@ -11,5 +11,12 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  root "drafttop#index"
+  # ログインしていない場合
+  unauthenticated :user do
+    root to: "static_pages#before_login", as: :unauthenticated_root
+  end
+  # ログインした場合
+  authenticated :user do
+    root to: "static_pages#after_login", as: :authenticated_root
+  end
 end
