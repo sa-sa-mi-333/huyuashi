@@ -11,8 +11,8 @@ module ApplicationHelper
     end
 
     # ページタイトルを定義
-    def page_title(title = '')
-        base_title = 'ふゆあし'
+    def page_title(title = "")
+        base_title = "ふゆあし"
         title.present? ? "#{title} | #{base_title}" : base_title
     end
 end
