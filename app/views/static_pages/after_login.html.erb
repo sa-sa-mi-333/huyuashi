@@ -1,3 +1,6 @@
-<div class="text-[#004681]"><%= t('views.drafttop.index.word') %></div>
+<% content_for(:title, t('.title')) %>
+<h1 class="text-bold"><%= t('.title') %></h1>
+
+<div class="text-[#004681]"><%= t('.word') %></div>
 <!-- deviseでログアウトするボタンを試験的に追加 -->
 <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn-primary" %>

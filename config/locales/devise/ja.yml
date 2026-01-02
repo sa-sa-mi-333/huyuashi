@@ -1,21 +1,46 @@
 # Additional translations at https://github.com/heartcombo/devise/wiki/I18n
-
+# devise関連のページの日本語化
 ja:
   devise:
-    # 新規登録画面
     registrations:
+      # 新規登録時フラッシュメッセージ
+      signed_up: "新規登録が完了しました ログインします"
+      failure: "アカウントの新規登録に失敗しました。"
+      # 新規登録ボタン
       new:
+        title: "新規登録ページ"
         sign_up: "新規登録"
-    # ログイン画面
+
     sessions:
+      user:
+        # ログイン時フラッシュメッセージ
+        signed_in: "ログインしました"
+        signed_out: "ログアウトしました"
+        already_signed_out: "ログアウト済です"
+      # ログインボタン
       new:
+        title: "ログインページ"
         sign_in: "ログイン"
-    # パスワードリセットリクエスト画面
+
     passwords:
+      # パスワードリセットリクエストボタン
       new:
         send_me_reset_password_instructions: "パスワードリセット用メールを送信"
-    # 共通部分
+
+    # 共通ビューボタン部分
     shared:
       links:
         sign_up: "新規登録"
         google_oauth: "Googleアカウントでログイン"
+
+    # 失敗時のメッセージ一覧
+    failure:
+      already_authenticated: "ログイン済です"
+      invalid: "ログインできませんでした。入力内容を確認してください"
+      not_found_in_database: "ログインできませんでした。入力内容を確認してください"
+      unauthenticated: "新規登録またはログインしてください"
+
+  errors:
+    messages:
+      # 新規登録時のメッセージ(保存できなかった時のエラーメッセージ)
+      not_saved: "新規登録できませんでした。入力内容を確認してください"
