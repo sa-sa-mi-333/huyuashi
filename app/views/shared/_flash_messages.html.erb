@@ -3,3 +3,14 @@
   <!-- div要素を生成 -->
   <%= content_tag(:div, value, class: "alert alert-#{key}") %>
 <% end %>
+
+<!-- deviseモデル関連のエラーを表示 -->
+<% if resource.errors.any? %>
+  <div class="alert-alert" data-turbo-cache="false">
+    <%= I18n.t("errors.messages.not_saved")%>
+<!--    <ul><% resource.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul> -->
+  </div>
+<% end %>
