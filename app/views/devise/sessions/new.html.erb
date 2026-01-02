@@ -1,4 +1,5 @@
-<h1 class="ml-5 text-bold">ログインページ</h1>
+<% content_for(:title, t('.title')) %>
+<h1 class="text-bold"><%= t('.title') %></h1>
 <!-- ログイン画面の入力フォームを配置 -->
 <div container class="mt-5 mx-auto max-w-md p-6 bg-white shadow-md">  
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -26,8 +27,8 @@
   <% end %>
   <!-- パスワード忘れの場合のリンク -->
   <div class="inline-block mt-5 text-center w-full">
-    <span class="text-[#004681]">パスワードをお忘れの方は</span>
-    <span class="atag"><%= link_to "こちら", new_password_path(resource_name) %></span>
+    <span class="text-[#004681] text-sm">パスワードをお忘れの方は</span>
+    <span class="atag text-sm"><%= link_to "こちら", new_password_path(resource_name) %></span>
   </div>
 </div>
 <!-- 新規登録と外部認証は別パーシャルで管理する -->
