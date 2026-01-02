@@ -1,23 +1,21 @@
 <!-- ログイン画面以外の場合、リンクとして「ログイン」と「Google認証でログイン」を表示 -->
-<%- if controller_name != 'sessions' %>
-  <div class="inline-block w-full">
-    <span class="text-[#004681]">登録済みの方は</span>
+<% if controller_name != 'sessions' %>
+  <div class="inline-block w-full mb-5">
+    <span class="text-sm text-[#004681]">登録済みの方は</span>
     <span><%= link_to "ログイン", new_session_path(resource_name), class:"btn-primary" %></span>
   </div>
-  <div class="inline-block w-full mt-5">
-    <span class="text-[#004681]">または</span>
-    <span><%= link_to t("devise.shared.links.google_oauth"), "#", class:"btn-thirdary" %></span>
-  </div>
 <% end %>
-
 <!-- 新規登録画面以外の場合、リンクとして「新規登録」を表示 -->
-<%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-  <div class="inline-block w-full">
-    <span class="text-[#004681]">登録がまだの方は</span>
+<% if devise_mapping.registerable? && controller_name != 'registrations' %>
+  <div class="inline-block w-full mb-5">
+    <span class="text-sm text-[#004681]">登録がまだの方は</span>
     <span><%= link_to "新規登録", new_registration_path(resource_name), class:"btn-primary" %></span>
   </div>
-  <div class="inline-block w-full mt-5">
-    <span class="text-[#004681]">または</span>
+<% end %>
+<!-- ログイン前トップページ以外で表示 -->
+<% if controller_name != 'static_pages' %>
+  <div class="inline-block w-full mb-5">
+    <span class="text-sm text-[#004681]">または</span>
     <span><%= link_to t("devise.shared.links.google_oauth"), "#", class:"btn-thirdary" %></span>
   </div>
 <% end %>
