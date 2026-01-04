@@ -49,6 +49,9 @@ gem "rails-i18n", "~> 8.0"
 # ログイン機能を実装
 gem "devise"
 
+# csvファイルを扱うため追加
+gem "csv", require: false
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
