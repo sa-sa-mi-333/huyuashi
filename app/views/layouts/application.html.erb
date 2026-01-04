@@ -38,9 +38,10 @@
     </header>
 
     <main class="my-1">
-      <div class="hidden"><%= render 'shared/humburger_menu' %></div>
+      <!-- ハンバーガーメニュー -->
+      <div><%= render 'shared/hamburger_menu' %></div>
       <!-- メインコンテンツはyieldで参照 画面中央に配置する -->
-      <div class="my-auto p-25"><%= yield %></div>
+      <div class="my-auto py-25"><%= yield %></div>
     </main> 
 
     <footer class="fixed bottom-0 left-0 w-full">
