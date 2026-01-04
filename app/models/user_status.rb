@@ -1,5 +1,9 @@
 class UserStatus < ApplicationRecord
   belongs_to :user
+  belongs_to :snow_station,
+             foreign_key: :station_number,
+             primary_key: :station_number,
+             optional: true
 
   # バリデーションチェック前に対応
   before_validation :set_default_name, on: :create

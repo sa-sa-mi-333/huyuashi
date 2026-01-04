@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_01_04_145703) do
+ActiveRecord::Schema[8.0].define(version: 2026_01_04_173419) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -32,6 +32,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_04_145703) do
     t.text "note", comment: "備考"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["station_number"], name: "index_snow_stations_on_station_number", unique: true
   end
 
   create_table "user_statuses", force: :cascade do |t|
@@ -39,6 +40,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_04_145703) do
     t.string "name", default: "名無しの雪だるま"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "station_number"
+    t.index ["station_number"], name: "index_user_statuses_on_station_number"
     t.index ["user_id"], name: "index_user_statuses_on_user_id"
   end
 
@@ -54,5 +57,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_04_145703) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "user_statuses", "snow_stations", column: "station_number", primary_key: "station_number"
   add_foreign_key "user_statuses", "users"
 end
