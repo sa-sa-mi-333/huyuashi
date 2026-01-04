@@ -45,10 +45,15 @@ body {
   }
 
   /* フラッシュメッセージ用のスタイル */
-  .alert-notice {
+  .alert-success {
     @apply bg-[#d5f2dc] text-[#0f8100] p-1;
   }
-  .alert-alert {
+  .alert-alert, .alert-danger {
     @apply bg-[#f2d5d5] text-[#810002] p-1;
   }
 }
+
+  /* ハンバーガーメニュー項目のスタイル 背景色に透明度を設定 */
+  .hamburger-content {
+    @apply bg-[#9ba9d0]/25 py-3 indent-5 text-[#004681] hover:bg-blue-300 border-b-2 border-[#004681]/25;
+  }

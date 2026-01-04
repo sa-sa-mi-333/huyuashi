@@ -29,23 +29,26 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="w-full mx-0 bg-[#f6f5fa]">
-    <header class="fixed top-0 left-0 w-full">
-      <!-- ヘッダーメニュー -->
+  <body class="mx-0 bg-[#f6f5fa]">
+    <!-- ヘッダーメニューがハンバーガメニューより前面に表示される高さに設定 -->
+    <header class="fixed top-0 left-0 w-full z-50">
       <%= render 'shared/header' %>
-      <!-- フラッシュメッセージ -->
-      <%= render 'shared/flash_messages' %>
     </header>
 
+    <!-- フラッシュメッセージはヘッダーの直下に配置 -->
+    <div class="fixed top-16 left-0 w-full pointer-events-none" data-turbo-cache="false">
+      <%= render 'shared/flash_messages' %>
+    </div>
+
     <main class="my-1">
-      <!-- ハンバーガーメニュー -->
-      <div><%= render 'shared/hamburger_menu' %></div>
       <!-- メインコンテンツはyieldで参照 画面中央に配置する -->
-      <div class="my-auto py-25"><%= yield %></div>
+      <div class="px-10 pt-25 pb-25 min-h-screen"><%= yield %></div>
+      <!-- ハンバーガーメニューは画面右側に設定 -->
+      <div><%= render 'shared/hamburger_menu' %></div>
     </main> 
 
-    <footer class="fixed bottom-0 left-0 w-full">
-      <!-- フッターメニュー -->
+    <!-- フッターメニューがハンバーガメニューより前面に表示される高さに設定 -->
+    <footer class="fixed bottom-0 left-0 w-full z-50">
       <%= render 'shared/footer' %>
     </footer>
   </body>
