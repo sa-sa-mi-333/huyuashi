@@ -1,16 +1,22 @@
 <!-- キーとバリューを取得してフラッシュメッセージを表示 -->
 <% flash.each do |key, value| %>
-  <!-- div要素を生成 -->
-  <%= content_tag(:div, value, class: "alert alert-#{key}") %>
+  <%flash_class = case key.to_s
+                  when 'alert'
+                    'danger'  # alertをdangerに変換
+                  when 'notice'
+                    'success' # noticeをsuccessに変換
+                  when 'error'
+                    'danger'
+                  else
+                    key.to_s
+                  end
+  %>
+  <%= content_tag(:div, value, class: "alert alert-#{flash_class}", data: { turbo_cache: false }) %>
 <% end %>
-
-<!-- deviseモデル関連のエラーを表示 -->
-<% if resource.errors.any? %>
-  <div class="alert-alert" data-turbo-cache="false">
-    <%= I18n.t("errors.messages.not_saved")%>
-<!--    <ul><% resource.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul> -->
+  
+<%# Deviseなどのresourceエラーも同じ形式で表示 %>
+<% if defined?(resource) && resource.errors.any? %>
+  <div class="alert alert-danger" data-turbo-cache="false">
+    <%= I18n.t("errors.messages.not_saved") %>
   </div>
 <% end %>
