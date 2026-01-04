@@ -10,9 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_12_31_161822) do
+ActiveRecord::Schema[8.0].define(version: 2026_01_04_145703) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "snow_stations", force: :cascade do |t|
+    t.integer "station_number", null: false, comment: "観測所番号"
+    t.string "prefecture", null: false, comment: "都府県振興局"
+    t.string "station_name", null: false, comment: "観測所名"
+    t.string "station_name_kana", comment: "カタカナ名"
+    t.string "location", comment: "所在地"
+    t.float "latitude_degree", comment: "緯度(度)"
+    t.float "latitude_minute", comment: "緯度(分)"
+    t.float "longitude_degree", comment: "経度(度)"
+    t.float "longitude_minute", comment: "経度  (分)"
+    t.decimal "latitude", precision: 10, scale: 7, comment: "緯度(10進数)"
+    t.decimal "longitude", precision: 10, scale: 7, comment: "経度(10進数)"
+    t.string "station_type", comment: "種類"
+    t.integer "elevation_meters", comment: "海面上の高さ(ｍ)"
+    t.date "observation_start_date", comment: "観測開始年月日"
+    t.text "note", comment: "備考"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "user_statuses", force: :cascade do |t|
     t.bigint "user_id", null: false

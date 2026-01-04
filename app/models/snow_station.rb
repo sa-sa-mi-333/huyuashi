@@ -1,0 +1,2 @@
+class SnowStation < ApplicationRecord
+end
