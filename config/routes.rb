@@ -15,8 +15,17 @@ Rails.application.routes.draw do
   unauthenticated :user do
     root to: "static_pages#before_login", as: :unauthenticated_root
   end
+
   # ログインした場合
   authenticated :user do
     root to: "static_pages#after_login", as: :authenticated_root
+  end
+
+  # user_statusの基本ルーティング
+  resource :user_status , only: [] do
+    collection do
+      get :select_station
+      patch :update_station
+    end
   end
 end
