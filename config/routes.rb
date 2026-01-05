@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   end
 
   # user_statusの基本ルーティング
-  resource :user_status , only: [] do
+  resource :user_status, only: [] do
     collection do
       get :select_station
       patch :update_station

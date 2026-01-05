@@ -11,7 +11,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-
   # アクション前に確認 devise関連画面でデバイス用のストロングパラメータを参照する
   before_action :configure_permitted_parameters, if: :devise_controller?
 
