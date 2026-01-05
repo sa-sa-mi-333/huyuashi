@@ -1,0 +1,27 @@
+<!-- 積雪観測地点を選択する専用画面 未設定の場合はこのページに遷移する -->
+<%= content_for(:title, t('.title')) %>
+<h1 class="text-bold"><%= t('.title') %></h1>
+
+<%# app/views/user_statuses/select_station.html.erb %>
+<div class="container">
+  <h1>観測所を選択してください</h1>
+  
+  <%= form_with model: current_user.user_status, 
+                url: update_station_user_status_path, 
+                method: :patch do |f| %>
+    
+    <div class="mb-3">
+      <%= f.label :station_number, "観測所" %>
+      
+      <%= f.grouped_collection_select :station_number,
+            @snow_stations_by_prefecture,
+            :last,                    # グループ内の要素（観測所の配列）
+            :first,                   # グループ名（都道府県名）
+            :station_number,          # option の value（送信される値）
+            :display_info,            # option の表示テキスト
+            { prompt: "観測所を選択してください" } %>
+    </div>
+    
+    <%= f.submit "設定する", class: "btn btn-primary" %>
+  <% end %>
+</div>
