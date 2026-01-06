@@ -11,14 +11,29 @@ body {
 @layer components {
   /* 通常ボタン */
   .btn-primary {
-    @apply block w-full mx-auto px-4 py-2 bg-[#d5e8f2]/70 backdrop-blur-lg border border-[#004681]/20 text-[#004681] font-bold text-center rounded-lg drop-shadow-lg cursor-pointer hover:bg-blue-300;
+    @apply bg-[#d5e8f2]/70 backdrop-blur-lg /* 背景設定 */
+            drop-shadow-lg rounded-lg /* 外形の設定 */
+            border border-[#004681]/20 /* 境界線の設定 */
+           text-[#004681] font-bold text-center /* テキストの設定 */
+           block w-full mx-auto px-4 py-2 /* 配置の設定 */
+           cursor-pointer hover:bg-blue-300 /* 効果に関する設定 */;
   }
   .btn-secondary {
-    @apply block w-full mx-auto px-4 py-2 bg-[#f2d5d5]/70 backdrop-blur-lg border border-[#810002]/20 text-[#810002] font-bold text-center rounded-lg drop-shadow-lg cursor-pointer hover:bg-red-300;
+    @apply bg-[#f2d5d5]/70 backdrop-blur-lg
+            drop-shadow-lg rounded-lg
+            border border-[#810002]/20
+            text-[#810002] font-bold text-center
+            block w-full mx-auto px-4 py-2
+            cursor-pointer hover:bg-red-300;
  }
   .btn-thirdary {
-    @apply block w-full mx-auto px-4 py-2 bg-[#d9d9d9]/70 backdrop-blur-lg border border-[#004681]/20 text-[#004681] font-bold text-center rounded-lg drop-shadow-lg cursor-pointer hover:bg-gray-400;
-  }
+    @apply bg-[#d9d9d9]/70 backdrop-blur-lg
+            drop-shadow-lg rounded-lg
+            border border-[#004681]/20
+            text-[#004681] font-bold text-center
+            block w-full mx-auto px-4 py-2
+            cursor-pointer hover:bg-gray-400;
+ }
 
   /* フォーム */
   .form-input {
@@ -30,20 +45,33 @@ body {
 
   /* aタグ用のスタイル */
   .atag {
-    @apply text-[#810002] font-semibold hover:underline;
+    @apply text-[#810002] font-semibold
+            hover:underline;
   }
 
   /* フラッシュメッセージ用のスタイル */
   .alert-success {
-    @apply bg-[#d5f2dc]/70 backdrop-blur-lg border border-[#0f8100]/20 text-[#0f8100] indent-1 rounded-lg drop-shadow-lg m-2 p-2;
+    @apply bg-[#d5f2dc]/70 backdrop-blur-lg
+            border border-[#0f8100]/20
+            text-[#0f8100] indent-1
+            rounded-lg drop-shadow-lg
+            m-2 p-2;
 
   }
   .alert-alert, .alert-danger {
-    @apply bg-[#f2d5d5]/70 backdrop-blur-lg border border-[#810002]/20 text-[#810002] indent-1 rounded-lg drop-shadow-lg m-2 p-2;
+    @apply bg-[#f2d5d5]/70 backdrop-blur-lg
+            border border-[#810002]/20
+           text-[#810002] indent-1
+           rounded-lg drop-shadow-lg
+           m-2 p-2;
   }
 
-  /* ハンバーガーメニュー項目のスタイル 背景色に透明度を設定 */
+  /* ハンバーガーメニュー項目のスタイル jsからクラス名を参照中 */
   .hamburger-content {
-    @apply bg-[#9ba9d0]/25 py-3 indent-5 text-[#004681] hover:bg-blue-300 border-b-2 border-[#004681]/25;
+    @apply bg-[#9ba9d0]/25
+            border-b-2 border-[#004681]/25 
+            text-[#004681] indent-5
+            hover:bg-blue-300
+            py-3;
   }
 }
