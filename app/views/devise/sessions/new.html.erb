@@ -1,37 +1,33 @@
 <% content_for(:title, t('.title')) %>
-<h1 class="text-bold"><%= t('.title') %></h1>
+
 <!-- ログイン画面の入力フォームを配置 -->
-<div container class="mt-5 mx-auto max-w-md p-6 bg-white shadow-md">  
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-    <!-- メールアドレス -->
-    <div class="field mb-5">
-      <%= f.label :email, class:"form-label my-2" %>
-      <%= f.email_field :email, class:"form-input", autofocus: true, autocomplete: "email", placeholder: "email@example.com" %>
-    </div>
-    <!-- パスワード -->
-    <div class="field mb-5">
-      <%= f.label :password, class:"form-label my-2" %>
-      <%= f.password_field :password, class:"form-input", autocomplete: "current-password", placeholder: "6文字以上で入力してください" %>
-    </div>
-    <!-- ログイン状態の保持 -->
-    <% if devise_mapping.rememberable? %>
-      <div class="field text-sm font-medium text-gray-700 my-5">
-        <%= f.check_box :remember_me %>
-        <%= f.label :remember_me %>
-      </div>
-    <% end %>
-    <!-- ログインボタン -->
-    <div class="actions btn-secondary">
-      <%= f.submit t("devise.sessions.new.sign_in") %>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <!-- メールアドレス -->
+  <div class="field mb-5">
+    <%= f.label :email, class:"form-label my-2" %>
+    <%= f.email_field :email, class:"form-input", autofocus: true, autocomplete: "email", placeholder: "email@example.com" %>
+  </div>
+  <!-- パスワード -->
+  <div class="field mb-5">
+    <%= f.label :password, class:"form-label my-2" %>
+    <%= f.password_field :password, class:"form-input", autocomplete: "current-password", placeholder: "6文字以上で入力してください" %>
+  </div>
+  <!-- ログイン状態の保持 -->
+  <% if devise_mapping.rememberable? %>
+    <div class="field text-sm font-medium text-gray-700 my-5">
+      <%= f.check_box :remember_me %>
+      <%= f.label :remember_me %>
     </div>
   <% end %>
-  <!-- パスワード忘れの場合のリンク -->
-  <div class="inline-block mt-5 text-center w-full">
-    <span class="text-[#004681] text-sm">パスワードをお忘れの方は</span>
-    <span class="atag text-sm"><%= link_to "こちら", new_password_path(resource_name) %></span>
+  <!-- ログインボタン -->
+  <div class="actions btn-secondary">
+    <%= f.submit t("devise.sessions.new.sign_in") %>
   </div>
+<% end %>
+<!-- パスワード忘れの場合のリンク -->
+<div class="inline-block mt-5 text-center w-full mb-5">
+  <span class="text-[#004681] text-sm">パスワードをお忘れの方は</span>
+  <span class="atag text-sm"><%= link_to "こちら", new_password_path(resource_name) %></span>
 </div>
 <!-- 新規登録と外部認証は別パーシャルで管理する -->
-<div container class="mx-auto mb-5 max-w-md p-6 bg-white shadow-md">
-  <%= render "devise/shared/links" %>
-</div>
+<%= render "devise/shared/links" %>

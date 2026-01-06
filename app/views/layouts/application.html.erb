@@ -29,7 +29,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="mx-0 bg-[#f6f5fa]">
+  <body class="mx-0 bg-gradient-to-b from-[#9ba9d0] to-[#d5e8f2]">
     <!-- ヘッダーメニューがハンバーガメニューより前面に表示される高さに設定 -->
     <header class="fixed top-0 left-0 w-full z-50">
       <%= render 'shared/header' %>
@@ -42,7 +42,11 @@
 
     <main class="my-1">
       <!-- メインコンテンツはyieldで参照 画面中央に配置する -->
-      <div class="px-10 pt-25 pb-25 min-h-screen"><%= yield %></div>
+      <div class="px-10 pt-30 pb-25 min-h-screen">
+      <!-- 氷風のフレーム内にメインコンテンツを配置する -->
+      <div class="mx-auto max-w-md p-6 rounded-md border border-gray-200/20 shadow-3xl backdrop-blur-lg bg-gray-50/20">
+        <%= yield %>
+      </div>
       <!-- ハンバーガーメニューは画面右側に設定 -->
       <div><%= render 'shared/hamburger_menu' %></div>
     </main> 
