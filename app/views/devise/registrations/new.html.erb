@@ -1,7 +1,7 @@
 <%= content_for(:title, t('.title')) %>
-<h1 class="text-bold"><%= t('.title') %></h1>
-<!-- 新規登録画面の入力フォームを配置 -->
+
 <div container class="mt-5 mx-auto max-w-md p-6 bg-white shadow-md">
+  <!-- 新規登録画面の入力フォームを配置 -->
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
     <!-- ユーザーネームを別テーブルに登録する -->
     <div class="field mb-5">
@@ -31,14 +31,13 @@
       </div>
     <% end %>
     <span class="inline-block text-sm text-[#004681] mb-1">
-      <a class="atag">プライバシーポリシー</a> と <a class="atag">利用規約</a> に同意していただき</span>
+      <a class="atag">プライバシーポリシー</a> と <a class="atag">利用規約</a> に同意していただき
+    </span>
     <!-- 新規登録ボタン -->
     <div class="actions btn-secondary">
       <%= f.submit t("devise.registrations.new.sign_up") %>
     </div>
   <% end %>
-</div>
-<!-- ログインページへのリンクは別パーシャルで管理する -->
-<div container class="mx-auto mb-5 max-w-md p-6 bg-white shadow-md">
+  <!-- ログインページへのリンクは別パーシャルで管理する -->
   <%= render "devise/shared/links" %>
 </div>
