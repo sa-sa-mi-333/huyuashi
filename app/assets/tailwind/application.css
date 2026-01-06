@@ -35,10 +35,11 @@ body {
 
   /* フラッシュメッセージ用のスタイル */
   .alert-success {
-    @apply bg-[#d5f2dc] text-[#0f8100] p-1;
+    @apply bg-[#d5f2dc]/70 backdrop-blur-lg border border-[#0f8100]/20 text-[#0f8100] indent-1 rounded-lg drop-shadow-lg m-2 p-2;
+
   }
   .alert-alert, .alert-danger {
-    @apply bg-[#f2d5d5] text-[#810002] p-1;
+    @apply bg-[#f2d5d5]/70 backdrop-blur-lg border border-[#810002]/20 text-[#810002] indent-1 rounded-lg drop-shadow-lg m-2 p-2;
   }
 
   /* ハンバーガーメニュー項目のスタイル 背景色に透明度を設定 */
