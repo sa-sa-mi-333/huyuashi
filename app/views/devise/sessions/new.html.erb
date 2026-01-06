@@ -1,6 +1,6 @@
 <% content_for(:title, t('.title')) %>
 
-<div container class="mt-5 mx-auto max-w-md p-6 bg-white shadow-md">  
+<div class="mx-auto max-w-md p-6 rounded-md border border-gray-200/20 shadow-3xl backdrop-blur-lg bg-gray-50/20">
   <!-- ログイン画面の入力フォームを配置 -->
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <!-- メールアドレス -->
@@ -26,7 +26,7 @@
     </div>
   <% end %>
   <!-- パスワード忘れの場合のリンク -->
-  <div class="inline-block mt-5 text-center w-full">
+  <div class="inline-block mt-5 text-center w-full mb-5">
     <span class="text-[#004681] text-sm">パスワードをお忘れの方は</span>
     <span class="atag text-sm"><%= link_to "こちら", new_password_path(resource_name) %></span>
   </div>

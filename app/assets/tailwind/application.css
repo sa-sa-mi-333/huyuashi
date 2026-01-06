@@ -11,24 +11,13 @@ body {
 @layer components {
   /* 通常ボタン */
   .btn-primary {
-    @apply inline-block w-full mx-auto px-4 py-2 bg-[#d5e8f2] border border-[#004681] text-[#004681] font-bold text-base text-center rounded-lg drop-shadow-lg cursor-pointer hover:bg-blue-300;
+    @apply block w-full mx-auto px-4 py-2 bg-[#d5e8f2]/70 backdrop-blur-lg border border-[#004681]/20 text-[#004681] font-bold text-center rounded-lg drop-shadow-lg cursor-pointer hover:bg-blue-300;
   }
   .btn-secondary {
-    @apply inline-block w-full mx-auto px-4 py-2 bg-[#f2d5d5] border border-[#810002] text-[#810002] font-bold text-base text-center rounded-lg drop-shadow-lg cursor-pointer hover:bg-red-300;
-  }
+    @apply block w-full mx-auto px-4 py-2 bg-[#f2d5d5]/70 backdrop-blur-lg border border-[#810002]/20 text-[#810002] font-bold text-center rounded-lg drop-shadow-lg cursor-pointer hover:bg-red-300;
+ }
   .btn-thirdary {
-    @apply inline-block w-full mx-auto px-4 py-2 bg-[#d9d9d9] border border-[#004681] text-[#004681] font-bold text-base text-center rounded-lg drop-shadow-lg cursor-pointer hover:bg-gray-400;
-  }
-
-  /* 大型ボタン */
-  .btn-primary-large {
-    @apply inline-block w-full py-2 px-4 bg-[#d5e8f2] border border-[#004681] text-[#004681] font-bold text-xl text-center rounded-lg drop-shadow-lg cursor-pointer hover:bg-blue-300;
-  }
-  .btn-secondary-large {
-    @apply inline-block w-full py-2 px-4 bg-[#f2d5d5] border border-[#810002] text-[#810002] font-bold text-xl text-center rounded-lg drop-shadow-lg cursor-pointer hover:bg-red-300;
-  }
-  .btn-thirdary-large {
-    @apply inline-block w-full bg-[#d9d9d9] border border-[#004681] text-center text-[#004681] font-bold py-2 px-4 text-xl rounded-lg drop-shadow-lg cursor-pointer hover:bg-gray-400;
+    @apply block w-full mx-auto px-4 py-2 bg-[#d9d9d9]/70 backdrop-blur-lg border border-[#004681]/20 text-[#004681] font-bold text-center rounded-lg drop-shadow-lg cursor-pointer hover:bg-gray-400;
   }
 
   /* フォーム */
@@ -51,9 +40,9 @@ body {
   .alert-alert, .alert-danger {
     @apply bg-[#f2d5d5] text-[#810002] p-1;
   }
-}
 
   /* ハンバーガーメニュー項目のスタイル 背景色に透明度を設定 */
   .hamburger-content {
     @apply bg-[#9ba9d0]/25 py-3 indent-5 text-[#004681] hover:bg-blue-300 border-b-2 border-[#004681]/25;
   }
+}
