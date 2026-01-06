@@ -1,3 +1,4 @@
 class StaticPagesController < ApplicationController
-  def before_login; end
+  def privacy_policy; end
+  def service_of_term; end
 end
