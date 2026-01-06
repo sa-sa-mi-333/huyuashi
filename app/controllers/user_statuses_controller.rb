@@ -20,7 +20,6 @@ class UserStatusesController < ApplicationController
       @snow_stations_by_prefecture = SnowStation.all.group_by(&:prefecture)
       render :select_station, status: :unprocessable_entity
     end
-    
   end
 
   private

@@ -31,11 +31,9 @@ Rails.application.routes.draw do
     end
   end
 
-  #static_pagesのルーティング
+  # static_pagesのルーティング
   # プライバシーポリシー
   get "static_pages/privacy_policy"
   # お問い合わせ
   get "static_pages/service_of_term"
-
-
 end
