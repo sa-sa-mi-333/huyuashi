@@ -42,7 +42,11 @@
 
     <main class="my-1">
       <!-- メインコンテンツはyieldで参照 画面中央に配置する -->
-      <div class="px-10 pt-25 pb-25 min-h-screen"><%= yield %></div>
+      <div class="px-10 pt-30 pb-25 min-h-screen">
+      <!-- 氷風のフレーム内にメインコンテンツを配置する -->
+      <div class="mx-auto max-w-md p-6 rounded-md border border-gray-200/20 shadow-3xl backdrop-blur-lg bg-gray-50/20">
+        <%= yield %>
+      </div>
       <!-- ハンバーガーメニューは画面右側に設定 -->
       <div><%= render 'shared/hamburger_menu' %></div>
     </main> 
