@@ -11,21 +11,31 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  # ログインしていない場合
+  # ログイン前のルートページを指定
   unauthenticated :user do
     root to: "static_pages#before_login", as: :unauthenticated_root
   end
 
-  # ログインした場合
+  # ログイン後のルートページを指定
   authenticated :user do
-    root to: "static_pages#after_login", as: :authenticated_root
+    root to: "static_pages#home", as: :authenticated_root
   end
 
-  # user_statusの基本ルーティング
+  # user_statusのルーティング 観測地点選択のみ
   resource :user_status, only: [] do
     collection do
+      # 観測地点選択用画面
       get :select_station
+      # 観測地点設定処理
       patch :update_station
     end
   end
+
+  #static_pagesのルーティング
+  # プライバシーポリシー
+  get "static_pages/privacy_policy"
+  # お問い合わせ
+  get "static_pages/service_of_term"
+
+
 end
