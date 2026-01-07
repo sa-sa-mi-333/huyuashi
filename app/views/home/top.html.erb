@@ -1,10 +1,23 @@
 <% content_for(:title, t('.title')) %>
 
 <!-- ログインユーザーの観測地点の情報を表示する -->
-現在の観測地点：
-<%= @station_info.prefecture %>・<%= @station_info.station_name %><br>
-<%= @station_info.location %><br>
-変更ボタンも配置する<br>
+<div class="max-w-md px-4 mx-auto border rounded-md shadow-lg border-gray-200/10 backdrop-blur-lg">
+  
+  <div class="flex items-center justify-between py-6">
+    <!-- 観測地点のマーク -->
+    <div class="h-auto w-18 opacity-40"><%= svg_tag "station" %></div>
+    <!-- 設定中の観測地点情報 -->
+    <div class="mr-auto">
+      <div class="text-left indent-3">現在の観測地点：</div>
+      <div class="font-semibold text-[#810002] text-left text-xl indent-10"><%= @station_info.prefecture %>・<%= @station_info.station_name %></div>
+    </div>
+    <div>
+      <!-- 変更ボタン -->
+      <%= button_to "変更", select_station_user_status_path, method: :get, class:"btn-primary min-w-max" %>
+    </div>
+  </div>
+</div>
+
 <!-- ログインユーザーの観測地点の情報を表示する --><br>
 気温：xx℃<br>
 Max：xx℃<br>
