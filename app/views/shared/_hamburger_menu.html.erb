@@ -1,9 +1,18 @@
 <!-- デフォルトでは非表示にする -->
-<div class="hamburger-menu hidden fixed top-16 right-0 w-64 h-300 bg-[#d5e8f2] shadow-lg z-50">
-  <nav>
+<div>
+  <nav class="hamburger-menu hidden fixed top-16 right-0 w-64 h-300 bg-[#d5e8f2] shadow-lg z-50">
     <!-- メニュー項目 -->
-      <ul class="flex items-center pl-4 hamburger-content"><%= image_tag "icons/login.svg"%>ログイン</ul>
-      <ul class="flex items-center pl-4 hamburger-content"><%= image_tag "icons/information.svg"%>プライバシーポリシー</ul>
-      <ul class="flex items-center pl-4 hamburger-content"><%= image_tag "icons/information.svg"%>利用規約</ul>
+      <ul class="flex items-center hamburger-content">
+        <div class="text-[#004681] w-12 h-auto pl-4"><%= svg_tag "login" %></div>
+        <div>ログイン</div>
+      </ul>
+      <ul class="flex items-center hamburger-content">
+        <div class="text-[#004681] w-12 h-auto pl-4"><%= svg_tag "information"%></div>
+        <div>プライバシーポリシー</div>
+      </ul>
+      <ul class="flex items-center hamburger-content">
+        <div class="text-[#004681] w-12 h-auto pl-4"><%= svg_tag "information"%></div>
+        <div>利用規約</div>
+      </ul>
   </nav>
 </div>
