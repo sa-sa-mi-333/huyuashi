@@ -1,6 +1,6 @@
 <% content_for(:title, t('.title')) %>
 
-<div class="mx-auto max-w-md p-6 rounded-md border border-gray-200/20 shadow-3xl backdrop-blur-lg bg-gray-50/20">
+<div class="max-w-md p-6 mx-auto border rounded-md border-gray-200/20 shadow-3xl backdrop-blur-lg bg-gray-50/20">
   <!-- ログインユーザーの観測地点の情報を表示する -->
   <%= current_user.user_status.station_number %>
   <div class="text-[#004681]"><%= t('.word') %></div>

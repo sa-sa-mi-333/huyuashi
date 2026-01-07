@@ -3,28 +3,28 @@
 <!-- 新規登録画面の入力フォームを配置 -->
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <!-- ユーザーネームを別テーブルに登録する -->
-  <div class="field mb-5">
+  <div class="mb-5 field">
     <%= f.label :name, class:"form-label my-2" %>
     <%= f.text_field :name, class:"form-input", autofocus: true, autocomplete: "name", placeholder: "名無しの雪だるま" %>
   </div>
   <!-- メールアドレス -->
-  <div class="field mb-5">
+  <div class="mb-5 field">
     <%= f.label :email, class:"form-label my-2" %>
     <%= f.email_field :email, class:"form-input", autocomplete: "email", placeholder: "email@example.com" %>
   </div>
   <!-- パスワード -->
-  <div class="field mb-5">
+  <div class="mb-5 field">
     <%= f.label :password, class:"form-label my-2" %>
     <%= f.password_field :password, class:"form-input", autocomplete: "current-password", placeholder: "6文字以上で入力してください" %>
   </div>
   <!-- パスワード確認 -->
-  <div class="field mb-5">
+  <div class="mb-5 field">
     <%= f.label :password_confirmation, class:"form-label my-2" %>
     <%= f.password_field :password_confirmation, class:"form-input", placeholder: "同じパスワードを入力してください" %>
   </div>
   <!-- ログイン状態の保持 -->
   <% if devise_mapping.rememberable? %>
-    <div class="field text-sm text-gray-700 my-5">
+    <div class="my-5 text-sm text-gray-700 field">
       <%= f.check_box :remember_me %>
       <%= f.label :remember_me %>
     </div>
@@ -33,7 +33,7 @@
     <a class="atag">プライバシーポリシー</a> と <a class="atag">利用規約</a> に同意していただき
   </span>
   <!-- 新規登録ボタン -->
-  <div class="actions btn-secondary mb-5">
+  <div class="mb-5 actions btn-secondary">
     <%= f.submit t("devise.registrations.new.sign_up") %>
   </div>
 <% end %>
