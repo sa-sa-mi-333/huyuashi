@@ -1,23 +1,19 @@
+<%= content_for(:title, t('.title')) %>
 
-<h1 class="ml-5 text-bold">パスワードリセットリクエスト</h1>
 <div class="text-[#004681] text-center my-5">入力されたメールアドレスにパスワードリセット用のメールを送信します</div>
 <!-- パスワードリセットリクエスト画面の入力フォームを配置 -->
-<div container class="mt-5 mx-auto max-w-md p-6 bg-white shadow-md">
 <!-- 
   <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
     <!-- メールアドレス 
-    <div class="field mb-5">
+    <div class="mb-5 field">
       <%= f.label :email, class:"form-label my-2" %>
       <%= f.email_field :email, class:"form-input", autofocus: true, autocomplete: "email" %>
     </div>
     <!-- パスワードリセットリクエストボタン 
-    <div class="actions btn-secondary my-5">
+    <div class="my-5 actions btn-secondary">
       <%= f.submit t("devise.passwords.new.send_me_reset_password_instructions") %>
     </div>
   <% end %>
 -->
-  実装まだ
-</div>
-<div container class="mx-auto mb-5 max-w-md p-6 bg-white shadow-md">
-  <span class="text-left text-sm font-medium text-gray-700">ブラウザバックで戻る</span>
-</div>
+実装まだ
+<span class="text-sm font-medium text-left text-gray-700">ブラウザバックで戻る</span>

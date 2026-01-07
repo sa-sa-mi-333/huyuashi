@@ -29,22 +29,22 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="mx-0 bg-gradient-to-b from-[#9ba9d0] to-[#d5e8f2]">
+  <body class="mx-0 bg-linear-to-b from-[#9ba9d0] to-[#d5e8f2] text-[#004681]">
     <!-- ヘッダーメニューがハンバーガメニューより前面に表示される高さに設定 -->
-    <header class="fixed top-0 left-0 w-full z-50">
+    <header class="fixed top-0 left-0 z-50 w-full">
       <%= render 'shared/header' %>
     </header>
 
     <!-- フラッシュメッセージはヘッダーの直下に配置 -->
-    <div class="fixed top-16 left-0 w-full pointer-events-none" data-turbo-cache="false">
+    <div class="fixed left-0 w-full pointer-events-none top-16" data-turbo-cache="false">
       <%= render 'shared/flash_messages' %>
     </div>
 
     <main class="my-1">
       <!-- メインコンテンツはyieldで参照 画面中央に配置する -->
-      <div class="px-10 pt-30 pb-25 min-h-screen">
+      <div class="min-h-screen px-10 pt-30 pb-25">
       <!-- 氷風のフレーム内にメインコンテンツを配置する -->
-      <div class="mx-auto max-w-md p-6 rounded-md border border-gray-200/20 shadow-3xl backdrop-blur-lg bg-gray-50/20">
+      <div class="max-w-md p-6 mx-auto border rounded-md border-gray-200/20 shadow-3xl backdrop-blur-lg bg-gray-50/20">
         <%= yield %>
       </div>
       <!-- ハンバーガーメニューは画面右側に設定 -->
@@ -52,7 +52,7 @@
     </main> 
 
     <!-- フッターメニューがハンバーガメニューより前面に表示される高さに設定 -->
-    <footer class="fixed bottom-0 left-0 w-full z-50">
+    <footer class="fixed bottom-0 left-0 z-50 w-full">
       <%= render 'shared/footer' %>
     </footer>
   </body>

@@ -1,10 +1,16 @@
 <div class="bg-[#004681] text-[#f6f5fa] px-5 py-2">
-  <div class="flex justify-between items-center">
+  <div class="flex items-center justify-between">
     <!-- テキストは左上に固定する -->
     <div class="flex items-center justify-center">
       <div><%= current_user ? current_user.user_status.name : "ログインしていません" %></div>
     </div>
     <!-- ハンバーガーメニューボタンは右上に固定する -->
-    <button class="hamburger-button cursor-pointer"><%= image_tag "icons/hamburger.svg"%></button>
+    <button class="hamburger-button">
+    <%= image_tag "icons/hamburger.svg",
+        class: "opacity-50 cursor-pointer transition
+                hover:opacity-100 hover:drop-shadow-[5px_5px_1px_rgba(0,0,0,0.5)]
+                active:opacity-100 active:drop-shadow-[0_0_25px_rgba(255,180,0,1)]"
+    %>
+    </button>
   </div>
 </div>

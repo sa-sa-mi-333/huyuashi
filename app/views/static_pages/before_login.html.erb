@@ -1,7 +1,10 @@
 <% content_for(:title, t('.title')) %>
 
-<div class="text-[#000000] text-5xl text-center my-15">ふ ゆ<br>あ し</div>
-<div class="text-[#004681] text-center mb-5">※本アプリはリリース前の暫定バージョンとなります</div>
-<div class="text-[#004681] text-center mb-5">雪かき作業の記録ができるようになります<br>ご利用には新規登録/ログインが必要です</div>
+<div class="text-5xl text-center my-15">ふ ゆ<br>あ し</div>
+<div class="mb-10 text-center text-md">
+  ※本アプリはリリース前の暫定バージョンです<br>
+  雪かき作業の記録ができるようになります<br>
+  ご利用には新規登録/ログインが必要です<br>
+</div>
 <!-- 新規登録とログインは別パーシャルで管理する -->
 <%= render "devise/shared/links" %>
