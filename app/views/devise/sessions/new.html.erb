@@ -14,7 +14,7 @@
   </div>
   <!-- ログイン状態の保持 -->
   <% if devise_mapping.rememberable? %>
-    <div class="my-5 text-sm font-medium text-gray-700 field">
+    <div class="w-3/4 mx-auto my-5 text-sm field">
       <%= f.check_box :remember_me %>
       <%= f.label :remember_me %>
     </div>
@@ -25,9 +25,10 @@
   </div>
 <% end %>
 <!-- パスワード忘れの場合のリンク -->
-<div class="inline-block w-full mt-5 mb-5 text-center">
-  <span class="text-[#004681] text-sm">パスワードをお忘れの方は</span>
-  <span class="text-sm atag"><%= link_to "こちら", new_password_path(resource_name) %></span>
+<div class="items-center inline-block w-full mx-auto mt-2 mb-5 text-center">
+  <div class="text-sm">
+    パスワードをお忘れの方は<%= link_to "こちら", new_password_path(resource_name), class:"atag px-2" %>
+  </div>
 </div>
 <!-- 新規登録と外部認証は別パーシャルで管理する -->
 <%= render "devise/shared/links" %>

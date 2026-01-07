@@ -1,7 +1,7 @@
 <!-- 積雪観測地点を選択する専用画面 未設定の場合はこのページに遷移する -->
 <%= content_for(:title, t('.title')) %>
 
-<p class="text-[#004681]">積雪観測地点を選択してください</p>
+<p>積雪観測地点を選択してください</p>
   
 <%= form_with model: current_user.user_status, 
               url: update_station_user_status_path, 
