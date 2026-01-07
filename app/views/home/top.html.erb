@@ -2,6 +2,6 @@
 
 <!-- ログインユーザーの観測地点の情報を表示する -->
 <%= current_user.user_status.station_number %>
-<div class="text-[#004681]"><%= t('.word') %></div>
+<%= @test %>
 <!-- deviseでログアウトするボタンを試験的に追加 -->
 <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn-primary" %>
