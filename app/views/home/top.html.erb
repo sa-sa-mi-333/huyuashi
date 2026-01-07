@@ -1,7 +1,18 @@
 <% content_for(:title, t('.title')) %>
 
 <!-- ログインユーザーの観測地点の情報を表示する -->
-<%= current_user.user_status.station_number %>
-<%= @test %>
+現在の観測地点：
+<%= @station_info.prefecture %>・<%= @station_info.station_name %><br>
+<%= @station_info.location %><br>
+変更ボタンも配置する<br>
+<!-- ログインユーザーの観測地点の情報を表示する --><br>
+気温：xx℃<br>
+Max：xx℃<br>
+Min：xx℃<br>
+<!-- 雪かき情報を表示 --><br>
+前回雪かきからの積雪予想：xxcm<br>
+予想作業時間：xxxxxxxxxx<br>
+雪かきスタート/ストップボタンを配置する<br>
+<br>
 <!-- deviseでログアウトするボタンを試験的に追加 -->
 <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn-primary" %>
