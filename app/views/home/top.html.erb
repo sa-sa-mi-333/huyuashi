@@ -1,7 +1,7 @@
 <% content_for(:title, t('.title')) %>
 
 <!-- ログインユーザーの観測地点の情報を表示する -->
-<div class="max-w-md px-4 mx-auto border rounded-md shadow-lg border-gray-200/10 backdrop-blur-lg">
+<div class="max-w-md pl-4 pr-10 mx-auto border rounded-md shadow-lg border-gray-500/20 backdrop-blur-lg mb-4">
 
   <div class="flex items-center justify-between py-6">
     <!-- 観測地点のマーク -->
@@ -9,7 +9,7 @@
     <!-- 設定中の観測地点情報 -->
     <div class="mr-auto">
       <div class="text-left indent-3">現在の観測地点：</div>
-      <div class="font-semibold text-[#810002] text-left text-xl indent-10"><%= @station_info.prefecture %>・<%= @station_info.station_name %></div>
+      <div class="font-semibold text-[#810002] text-left text-xl indent-15"><%= @station_info.prefecture %>・<%= @station_info.station_name %></div>
     </div>
     <div>
       <!-- 変更ボタン -->
@@ -18,17 +18,32 @@
   </div>
 </div>
 
-<!-- ログインユーザーの観測地点の情報を表示する --><br>
-<%= "#{format_observation_hour(@latest_record)}時時点" %><br>
-<%= "気温：#{@latest_record.temp}℃"%><br>
-<%= "積雪：#{@latest_record.snow}cm" %><br>
+<!-- ログインユーザーの観測地点の気温を表示する -->
+<div class="max-w-md px-4 mx-auto border rounded-md shadow-lg border-gray-500/20 backdrop-blur-lg mb-4">
 
-Max：xx℃<br>
-Min：xxcm<br>
-<!-- 雪かき情報を表示 --><br>
-前回雪かきからの積雪予想：xxcm<br>
-予想作業時間：xxxxxxxxxx<br>
-雪かきスタート/ストップボタンを配置する<br>
-<br>
-<!-- deviseでログアウトするボタンを試験的に追加 -->
-<%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn-primary" %>
+  <div class="flex items-center justify-between py-6">
+    <!-- 温度計のマーク -->
+    <div class="h-auto w-18 opacity-40"><%= svg_tag "temperature" %></div>
+    <!-- 設定中の観測地点情報 -->
+    <div class="mr-auto">
+      <div class="text-left indent-5">
+        <p><%= "#{format_observation_hour(@latest_record)}時 時点" %></p>
+        <p class="font-semibold text-left text-2xl indent-15"><%= "#{@latest_record.temp} ℃"%></p>
+      </div>
+    </div>
+    <div class="mr-15">
+      <p class="text-sm">直近24時間の気温</p>
+      <p>max: <span class="font-semibold text-[#810002] text-2xl">xx ℃</span></p>
+      <p>min: <span class="font-semibold text-2xl">xx ℃</span></p>
+    </div>
+  </div>
+</div>
+
+<div class="max-w-md px-4 mx-auto border rounded-md shadow-lg border-gray-500/20 backdrop-blur-lg mb-4">
+  <!-- 雪かき情報を表示 -->
+  <div class="my-4 m-10">
+    <p>現在の観測地点の積雪深： <span class="font-semibold text-[#810002] text-2xl"><%= "+ #{@latest_record.snow} cm" %></span></p>
+    <p>作業時関予想： <span class="font-semibold text-[#810002]">雪かきログが不足しています</span></p>
+  </div>
+  <%= button_to "雪かきスタート", "#", method: :get, class:"btn-secondary text-3xl my-10" %>
+</div>
