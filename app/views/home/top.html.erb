@@ -2,7 +2,7 @@
 
 <!-- ログインユーザーの観測地点の情報を表示する -->
 <div class="max-w-md px-4 mx-auto border rounded-md shadow-lg border-gray-200/10 backdrop-blur-lg">
-  
+
   <div class="flex items-center justify-between py-6">
     <!-- 観測地点のマーク -->
     <div class="h-auto w-18 opacity-40"><%= svg_tag "station" %></div>
@@ -19,7 +19,8 @@
 </div>
 
 <!-- ログインユーザーの観測地点の情報を表示する --><br>
-<%= "気温：#{@latest_record.temp}℃" %><br>
+<%= "#{format_observation_hour(@latest_record)}時時点" %><br>
+<%= "気温：#{@latest_record.temp}℃"%><br>
 <%= "積雪：#{@latest_record.snow}cm" %><br>
 
 Max：xx℃<br>
