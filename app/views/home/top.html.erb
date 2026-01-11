@@ -19,9 +19,11 @@
 </div>
 
 <!-- ログインユーザーの観測地点の情報を表示する --><br>
-気温：xx℃<br>
+<%= "気温：#{@latest_record.temp}℃" %><br>
+<%= "積雪：#{@latest_record.snow}cm" %><br>
+
 Max：xx℃<br>
-Min：xx℃<br>
+Min：xxcm<br>
 <!-- 雪かき情報を表示 --><br>
 前回雪かきからの積雪予想：xxcm<br>
 予想作業時間：xxxxxxxxxx<br>
