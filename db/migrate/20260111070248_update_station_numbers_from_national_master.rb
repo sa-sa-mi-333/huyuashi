@@ -32,6 +32,7 @@ class UpdateStationNumbersFromNationalMaster < ActiveRecord::Migration[8.0]
       if station.station_number != national_data[:station_number]
           updates << {
             station_id: station.id,
+            station_name: station.station_name,
             old_number: station.station_number,
             new_number: national_data[:station_number],
             temp_number: temp_number_offset + station.id,
@@ -53,17 +54,15 @@ class UpdateStationNumbersFromNationalMaster < ActiveRecord::Migration[8.0]
                   .update_all(station_number: update[:temp_number])
         
         # snow_stationsを一時番号に更新
-        update[:station].update_columns(
-          station_number: update[:temp_number],
-          updated_at: Time.current
-        )
+        SnowStation.where(id: update[:station_id])
+                   .update_all(station_number: update[:temp_number])
         
         puts "#{update[:station].station_name}: #{update[:old_number]} → #{update[:temp_number]} (一時)"
       end
     end
 
     # 最終的な番号に変更
-    puts "\n【フェーズ2】最終的な番号に変更中..."
+    puts "\n最終的な番号に変更"
     
     updated_count = 0
     skipped_count = 0
@@ -93,10 +92,8 @@ class UpdateStationNumbersFromNationalMaster < ActiveRecord::Migration[8.0]
           UserStatus.where(station_number: update[:temp_number])
                     .update_all(station_number: update[:old_number])
           
-          update[:station].update_columns(
-            station_number: update[:old_number],
-            updated_at: Time.current
-          )
+          SnowStation.where(id: update[:station_id])
+                    .update_all(station_number: update[:old_number])
         end
         
         skipped_count += 1
