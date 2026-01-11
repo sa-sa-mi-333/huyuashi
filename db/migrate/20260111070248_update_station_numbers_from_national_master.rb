@@ -30,16 +30,22 @@ class UpdateStationNumbersFromNationalMaster < ActiveRecord::Migration[8.0]
       # 観測所番号が異なる場合のみ更新
       if station.station_number != national_data[:station_number]
         old_number = station.station_number
+        new_number = national_data[:station_number]
 
-        # update_column: バリデーションをスキップして直接更新
-        station.update_columns(
-          station_number: national_data[:station_number],
-          prefecture: national_data[:prefecture],
-          updated_at: Time.current
-        )
+          # user_statusで登録されている部分を合わせて更新
+          ActiveRecord::Base.transaction do
+          UserStatus.where(station_number: old_number).update_all(station_number: new_number)
+
+          # update_column: バリデーションをスキップして直接更新
+          station.update_columns(
+            station_number: national_data[:station_number],
+            prefecture: national_data[:prefecture],
+            updated_at: Time.current
+          )
+        end
 
         updated_count += 1
-        puts "#{station.station_name}: #{old_number} → #{national_data[:station_number]}"
+        puts "#{station.station_name}: #{old_number} → #{new_number}"
       end
     end
 
