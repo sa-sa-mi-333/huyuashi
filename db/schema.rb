@@ -10,19 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_01_09_135042) do
+ActiveRecord::Schema[8.0].define(version: 2026_01_11_070248) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
   create_table "amedas_records", force: :cascade do |t|
     t.integer "json_date"
-    t.float "pressure"
-    t.float "normal_pressure"
     t.float "temp"
-    t.integer "humidity"
     t.integer "snow"
-    t.integer "wind_direction"
-    t.float "wind"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "station_number"
