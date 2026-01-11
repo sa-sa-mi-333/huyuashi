@@ -3,7 +3,7 @@ class UserStatus < ApplicationRecord
   belongs_to :snow_station,
              foreign_key: :station_number,
              primary_key: :station_number,
-             optional: true
+             optional: true # テーブル作成後に設定する内容なのでnilを許可
 
   # バリデーションチェック前に対応
   before_validation :set_default_name, on: :create
