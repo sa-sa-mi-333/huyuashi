@@ -31,6 +31,7 @@ class UpdateStationNumbersFromNationalMaster < ActiveRecord::Migration[8.0]
       # 観測所番号が異なる場合のみ更新対象に追加
       if station.station_number != national_data[:station_number]
           updates << {
+            station_id: station.id,
             old_number: station.station_number,
             new_number: national_data[:station_number],
             temp_number: temp_number_offset + station.id,
@@ -57,7 +58,7 @@ class UpdateStationNumbersFromNationalMaster < ActiveRecord::Migration[8.0]
           updated_at: Time.current
         )
         
-        puts "🔄 #{update[:station].station_name}: #{update[:old_number]} → #{update[:temp_number]} (一時)"
+        puts "#{update[:station].station_name}: #{update[:old_number]} → #{update[:temp_number]} (一時)"
       end
     end
 
@@ -75,12 +76,13 @@ class UpdateStationNumbersFromNationalMaster < ActiveRecord::Migration[8.0]
                                     .update_all(station_number: update[:new_number])
           
           # snow_stationsを最終番号に更新
-          update[:station].update_columns(
-            station_number: update[:new_number],
-            prefecture: update[:prefecture],
-            updated_at: Time.current
-          )
-          
+          SnowStation.where(id: update[:station_id])
+                     .update_all(
+                       station_number: update[:new_number],
+                       prefecture: update[:prefecture],
+                       updated_at: Time.current
+                     )
+
           updated_count += 1
           puts "#{update[:station].station_name}: #{update[:old_number]} → #{update[:new_number]} (user_statuses: #{affected_rows}件)"
         end
@@ -107,6 +109,7 @@ class UpdateStationNumbersFromNationalMaster < ActiveRecord::Migration[8.0]
     puts "観測所番号の更新が完了しました"
     puts "更新: #{updated_count}件"
     puts "マスタ未存在: #{not_found_count}件"
+    puts "スキップ: #{skipped_count}"
     puts "="*60
   end
 
