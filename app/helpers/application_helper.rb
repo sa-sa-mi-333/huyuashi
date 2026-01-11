@@ -30,7 +30,7 @@ module ApplicationHelper
 
   # xx時時点の時間を返す
   def format_observation_hour(record)
-    return '---' if record.nil? || record.json_date.nil?
+    return "---" if record.nil? || record.json_date.nil?
     record.json_date.to_s[8..9]
   end
 end
