@@ -1,5 +1,8 @@
 # station_numberとprefevtureを全国のアメダスマスターの内容に置き換える
 class UpdateStationNumbersFromNationalMaster < ActiveRecord::Migration[8.0]
+  # トランザクション起因のエラーが発生するため追加
+  disable_ddl_transaction!
+
   def up
     puts "\n" + "="*60
     puts "観測所番号の更新を開始します"
@@ -78,18 +81,18 @@ class UpdateStationNumbersFromNationalMaster < ActiveRecord::Migration[8.0]
         if updated_count <= 10
           puts "✅ #{station.station_name}: #{old_number} → #{national_data[:station_number]}"
         end
-      end
+        end
 
       rescue StandardError => e
         error_count += 1
         puts "❌ ID: #{station_id} の処理中にエラーが発生しました"
         puts "    エラー: #{e.class} - #{e.message}"
-        
+
         # ✅ エラーの詳細情報を追加
         if station
           puts "    station情報: ID=#{station.id}, Name=#{station.station_name.inspect}, Number=#{station.station_number}"
         end
-        
+
         puts "    Backtrace:"
         puts e.backtrace.first(3).map { |line| "      #{line}" }.join("\n")
       end
