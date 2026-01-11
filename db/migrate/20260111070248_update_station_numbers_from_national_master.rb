@@ -68,23 +68,30 @@ class UpdateStationNumbersFromNationalMaster < ActiveRecord::Migration[8.0]
         if station.station_number != national_data[:station_number]
           old_number = station.station_number
 
-          # ✅ トランザクションで囲む
-          ActiveRecord::Base.transaction do
-            station.update_columns(
-              station_number: national_data[:station_number],
-              prefecture: national_data[:prefecture],
-              updated_at: Time.current
-            )
-          end
+          station.update_columns(
+            station_number: national_data[:station_number],
+            prefecture: national_data[:prefecture],
+            updated_at: Time.current
+          )
 
-          updated_count += 1
+        updated_count += 1
+        if updated_count <= 10
           puts "✅ #{station.station_name}: #{old_number} → #{national_data[:station_number]}"
         end
+      end
 
       rescue StandardError => e
         error_count += 1
-        puts "❌ ID: #{station_id} の処理中にエラーが発生しました: #{e.message}"
-        puts e.backtrace.first(3).join("\n")
+        puts "❌ ID: #{station_id} の処理中にエラーが発生しました"
+        puts "    エラー: #{e.class} - #{e.message}"
+        
+        # ✅ エラーの詳細情報を追加
+        if station
+          puts "    station情報: ID=#{station.id}, Name=#{station.station_name.inspect}, Number=#{station.station_number}"
+        end
+        
+        puts "    Backtrace:"
+        puts e.backtrace.first(3).map { |line| "      #{line}" }.join("\n")
       end
     end
 
