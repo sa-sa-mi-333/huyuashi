@@ -1,22 +1,24 @@
-<!-- 積雪観測地点を選択する専用画面 未設定の場合はこのページに遷移する -->
-<%= content_for(:title, t('.title')) %>
+<div class="max-w-md p-6 mx-auto border rounded-md shadow-lg border-gray-500/20 backdrop-blur-lg bg-gray-50/10">
+  <!-- 積雪観測地点を選択する専用画面 未設定の場合はこのページに遷移する -->
+  <%= content_for(:title, t('.title')) %>
 
-<p>積雪観測地点を選択してください</p>
-  
-<%= form_with model: current_user.user_status, 
-              url: update_station_user_status_path, 
-              method: :patch do |f| %>
-  
-  <div class="my-5">
-    <%= f.label :station_number, "観測所", class:"text-[#004681] text-sm" %>
-      
-    <%= f.grouped_collection_select :station_number,
-          @snow_stations_by_prefecture,
-          :last,                    # グループ内の要素（観測所の配列）
-          :first,                   # グループ名（都道府県名）
-          :station_number,          # option の value（送信される値）
-          :display_info,            # option の表示テキスト
-          { prompt: "観測所を選択してください" }, class:"text-[#004681] max-w-full border-1 border-[#004681] rounded-sm my-1 p-1" %>
-  </div>  
-  <%= f.submit "設定する", class: "btn btn-primary" %>
-<% end %>
+  <p>積雪観測地点を選択してください</p>
+
+  <%= form_with model: current_user.user_status,
+                url: update_station_user_status_path,
+                method: :patch do |f| %>
+
+    <div class="my-5">
+      <%= f.label :station_number, "観測所", class:"text-[#004681] text-sm" %>
+
+      <%= f.grouped_collection_select :station_number,
+            @snow_stations_by_prefecture,
+            :last,                    # グループ内の要素（観測所の配列）
+            :first,                   # グループ名（都道府県名）
+            :station_number,          # option の value（送信される値）
+            :display_info,            # option の表示テキスト
+            { prompt: "観測所を選択してください" }, class:"text-[#004681] max-w-full border-1 border-[#004681] rounded-sm my-1 p-1" %>
+    </div>
+    <%= f.submit "設定する", class: "btn btn-primary" %>
+  <% end %>
+</div>

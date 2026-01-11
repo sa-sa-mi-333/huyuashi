@@ -17,5 +17,20 @@ class HomeController < ApplicationController
     @latest_record ||= AmedasRecord.where(station_number: @station_number)
                                     .order(json_date: :desc)
                                     .first
+
+    # 過去24時間のレコードから最高・最低気温を取得
+    # 現在の時刻をjson_date形式で取得
+    current_json_date = Time.now.strftime("%Y%m%d%H").to_i * 10000
+    # yyyymmddhhmmssの形式から1日遡る(1000000を引く)
+    json_date_24h_ago = current_json_date - 1000000
+
+    # 過去24時間のレコードを取得
+    records_24h = AmedasRecord.where(station_number: @station_number)
+                               .where("json_date >= ?", json_date_24h_ago)
+                               .where.not(temp: nil)  # 欠測データを除外
+
+    # 最高気温・最低気温を取得
+    @max_temp = records_24h.maximum(:temp)
+    @min_temp = records_24h.minimum(:temp)
   end
 end
