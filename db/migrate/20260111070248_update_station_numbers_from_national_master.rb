@@ -15,7 +15,8 @@ class UpdateStationNumbersFromNationalMaster < ActiveRecord::Migration[8.0]
     end
 
     # 更新用カウンタを準備
-    updated_count = 0
+    temp_number_offset = 1_000_000
+    updates = []
     not_found_count = 0
 
     SnowStation.find_each do |station|
@@ -27,25 +28,78 @@ class UpdateStationNumbersFromNationalMaster < ActiveRecord::Migration[8.0]
         next
       end
 
-      # 観測所番号が異なる場合のみ更新
+      # 観測所番号が異なる場合のみ更新対象に追加
       if station.station_number != national_data[:station_number]
-        old_number = station.station_number
-        new_number = national_data[:station_number]
+          updates << {
+            old_number: station.station_number,
+            new_number: national_data[:station_number],
+            temp_number: temp_number_offset + station.id,
+            prefecture: national_data[:prefecture]
+          }
+      end
+    end
 
-          # user_statusで登録されている部分を合わせて更新
-          ActiveRecord::Base.transaction do
-          UserStatus.where(station_number: old_number).update_all(station_number: new_number)
+    puts "更新対象: #{updates.size}件"
+    return if updates.empty?
 
-          # update_column: バリデーションをスキップして直接更新
-          station.update_columns(
-            station_number: national_data[:station_number],
-            prefecture: national_data[:prefecture],
+    # 一時的な番号に置き換える
+    puts "\n一時的な番号に変更"
+
+    updates.each do |update|
+      ActiveRecord::Base.transaction do
+        # user_statusesを一時番号に更新
+        UserStatus.where(station_number: update[:old_number])
+                  .update_all(station_number: update[:temp_number])
+        
+        # snow_stationsを一時番号に更新
+        update[:station].update_columns(
+          station_number: update[:temp_number],
+          updated_at: Time.current
+        )
+        
+        puts "🔄 #{update[:station].station_name}: #{update[:old_number]} → #{update[:temp_number]} (一時)"
+      end
+    end
+
+    # 最終的な番号に変更
+    puts "\n【フェーズ2】最終的な番号に変更中..."
+    
+    updated_count = 0
+    skipped_count = 0
+    
+    updates.each do |update|
+      begin
+        ActiveRecord::Base.transaction do
+          # user_statusesを最終番号に更新
+          affected_rows = UserStatus.where(station_number: update[:temp_number])
+                                    .update_all(station_number: update[:new_number])
+          
+          # snow_stationsを最終番号に更新
+          update[:station].update_columns(
+            station_number: update[:new_number],
+            prefecture: update[:prefecture],
+            updated_at: Time.current
+          )
+          
+          updated_count += 1
+          puts "#{update[:station].station_name}: #{update[:old_number]} → #{update[:new_number]} (user_statuses: #{affected_rows}件)"
+        end
+
+      rescue ActiveRecord::InvalidForeignKey => e
+        # エラーが発生した場合は元の番号に戻す
+        ActiveRecord::Base.transaction do
+          UserStatus.where(station_number: update[:temp_number])
+                    .update_all(station_number: update[:old_number])
+          
+          update[:station].update_columns(
+            station_number: update[:old_number],
             updated_at: Time.current
           )
         end
-
-        updated_count += 1
-        puts "#{station.station_name}: #{old_number} → #{new_number}"
+        
+        skipped_count += 1
+        puts "⚠️  #{update[:station].station_name}: #{update[:old_number]} → #{update[:new_number]} (外部キー制約エラーによりスキップ)"
+        puts "    エラー詳細: #{e.message}"
       end
     end
 
