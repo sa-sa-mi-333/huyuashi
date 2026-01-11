@@ -3,7 +3,7 @@ class AmedasRecord < ApplicationRecord
     foreign_key: :station_number,
     primary_key: :station_number
 
-  # importメソッドの処理で必ず入力される
-  validates :station_number, presence: true
-  validates :json_date, presence: true
+  validates :station_number, presence: true # importメソッドの処理で必ず入力される
+  validates :json_date, presence: true # importメソッドの処理で必ず入力される
+  validates :station_number, uniqueness: { scope: :json_date }  # 同じ観測地点・同じ時刻のデータは1つだけ
 end
