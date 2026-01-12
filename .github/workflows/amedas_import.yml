@@ -1,0 +1,36 @@
+name: Github Actions Amedas Data Import
+
+on:
+  schedule:
+    # 毎時8分に実行(UTC)
+    - cron: '8 * * * *'
+  
+  # 手動実行も可能にする
+  workflow_dispatch:
+
+jobs:
+  amedas-import-data:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Trigger Render Job
+        run: |
+          curl -X POST "https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/jobs" \
+            -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "startCommand": "bundle exec rake amedas:import",
+              "planId": "starter"
+            }'
+      
+      - name: Wait for job completion
+        run: sleep 30
+      
+      - name: Check job status
+        run: |
+          echo "Job triggered successfully!"
+          echo "Check Render dashboard for execution status:"
+          echo "https://dashboard.render.com/web/${{ secrets.RENDER_SERVICE_ID }}"
