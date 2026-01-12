@@ -28,13 +28,13 @@
     <div class="mr-auto">
       <div class="text-left indent-5">
         <p><%= "#{format_observation_hour(@latest_record)}時 時点" %></p>
-        <p class="font-semibold text-left text-2xl indent-15"><%= "#{@latest_record.temp ||= "データなし"} ℃"%></p>
+        <p class="font-semibold text-left text-2xl indent-15"><%= "#{@latest_record.temp || "データなし"} ℃"%></p>
       </div>
     </div>
     <div class="mr-15">
       <p class="text-sm">直近24時間の気温</p>
-      <p>max: <span class="font-semibold text-[#810002] text-2xl"><%= @max_temp ||= "データなし" %> ℃</span></p>
-      <p>min: <span class="font-semibold text-2xl"><%= @min_temp ||= "データなし" %> ℃</span></p>
+      <p>max: <span class="font-semibold text-[#810002] text-2xl"><%= @max_temp || "データなし" %> ℃</span></p>
+      <p>min: <span class="font-semibold text-2xl"><%= @min_temp || "データなし" %> ℃</span></p>
     </div>
   </div>
 </div>
