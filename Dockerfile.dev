@@ -13,6 +13,7 @@ RUN apt-get update -qq && \
     libjemalloc2 \
     libvips \
     postgresql-client && \
+    apt-get clean && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # baseを元にgemをインストールしキャッシュは削除
@@ -22,11 +23,13 @@ RUN apt-get update -qq && \
     git \
     libpq-dev \
     libyaml-dev \
-    pkg-config && \
+    pkg-config \
+    cron && \
+    apt-get clean && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 # 開発環境なので全てのgemをインストール
 ENV RAILS_ENV="development" \
-#   BUNDLE_DEPLOYMENT="1" \
+    #   BUNDLE_DEPLOYMENT="1" \
     BUNDLE_PATH="/usr/local/bundle"
 #   BUNDLE_WITHOUT="development"
 # gemfileをコピーしてからインストール
@@ -48,7 +51,7 @@ COPY . .
 FROM build AS development
 # 本番環境
 ENV RAILS_ENV="development" \
-#   BUNDLE_DEPLOYMENT="1" \
+    #   BUNDLE_DEPLOYMENT="1" \
     BUNDLE_PATH="/usr/local/bundle"
 #   BUNDLE_WITHOUT="development"
 # 生成したgemとアプリ用のファイルをコピー

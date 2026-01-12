@@ -2,7 +2,7 @@ services:
   db:
     image: postgres
     environment:
-    # 開発環境のusername,password,db名はここで設定する
+      # 開発環境のusername,password,db名はここで設定する
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: myapp_development
@@ -17,10 +17,20 @@ services:
       context: .
       # 開発環境用のDockerfileを参照する
       dockerfile: Dockerfile.dev
+    # cronデーモンの起動スクリプトを追加
+    command: >
+      bash -c "
+        service cron start &&
+        bundle install &&
+        bundle exec rails db:prepare &&
+        rm -f tmp/pids/server.pid &&
+        ./bin/dev
+        "
     # exited with code 0対策
     stdin_open: true
     tty: true
-    ports: # 開発環境用のポート番号にする
+    ports:
+      # 開発環境用のポート番号にする
       - "3000:3000"
     volumes:
       - .:/myapp

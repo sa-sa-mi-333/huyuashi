@@ -2,8 +2,8 @@ services:
   db:
     image: postgres
     environment:
-    # PostgreSQLはパスワードの指定が必須となる
-    # 本番環境では別のDBに接続するためこの設定は無視される
+      # PostgreSQLはパスワードの指定が必須となる
+      # 本番環境では別のDBに接続するためこの設定は無視される
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: myapp_development
@@ -18,11 +18,20 @@ services:
       context: .
       # 本番環境用のDockerfileを参照する
       dockerfile: Dockerfile.prod
+    # cronデーモンの起動スクリプトを追加
+    command: >
+      bash -c "
+        service cron start &&
+        bundle install &&
+        bundle exec rails db:prepare &&
+        rm -f tmp/pids/server.pid &&
+        ./bin/dev
+        "
     # exited with code 0対策
     stdin_open: true
     tty: true
-#    ports: # 本番環境ではrender側でポート番号を決定するため指定は不要
-#      - "80:80"
+    #    ports: # 本番環境ではrender側でポート番号を決定するため指定は不要
+    #      - "80:80"
     volumes:
       - .:/myapp
       # インストールしたgemパッケージを永続化する
