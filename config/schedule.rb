@@ -24,7 +24,7 @@ require File.expand_path(File.dirname(__FILE__) + "/environment")
 
 # cronを実行する環境変数の設定
 ENV.each { |k, v| env(k, v) }
-rails_env = ENV['RAILS_ENV'] || :development
+rails_env = ENV["RAILS_ENV"] || :development
 
 # cronを実行する環境変数をセット
 set :environment, rails_env
@@ -38,6 +38,6 @@ every "5 * * * *" do
 end
 
 # ログローテーション(毎日0時に実行)
-every 1.day, at: '0:00 am' do
+every 1.day, at: "0:00 am" do
   command "cd #{Rails.root} && mv log/cron.log log/cron.log.$(date +\\%Y\\%"
 end
