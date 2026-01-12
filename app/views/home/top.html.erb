@@ -28,7 +28,7 @@
     <div class="mr-auto">
       <div class="text-left indent-5">
         <p><%= "#{format_observation_hour(@latest_record)}時 時点" %></p>
-        <p class="font-semibold text-left text-2xl indent-15"><%= "#{@latest_record.temp || "データなし"} ℃"%></p>
+        <p class="font-semibold text-left text-2xl indent-15"><%= "#{@latest_record&.temp.presence || "データなし"} ℃"%></p>
       </div>
     </div>
     <div class="mr-15">
@@ -42,7 +42,7 @@
 <div class="max-w-md px-4 mx-auto border rounded-md shadow-lg border-gray-500/20 backdrop-blur-lg mb-4">
   <!-- 雪かき情報を表示 -->
   <div class="my-4 m-10">
-    <p>現在の観測地点の積雪深： <span class="font-semibold text-[#810002] text-2xl"><%= "+ #{@latest_record.snow} cm" %></span></p>
+    <p>現在の観測地点の積雪深： <span class="font-semibold text-[#810002] text-2xl"><%= "+ #{@latest_record&.snow.presence || "データなし"} cm" %></span></p>
     <p>作業時関予想： <span class="font-semibold text-[#810002]">雪かきログが不足しています</span></p>
   </div>
   <%= button_to "雪かきスタート", "#", method: :get, class:"btn-secondary text-3xl my-10" %>
