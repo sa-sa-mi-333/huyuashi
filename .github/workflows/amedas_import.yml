@@ -16,21 +16,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       
-      - name: Trigger Render Job
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+      - name: Run Amedas Data Import
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          RAILS_ENV: production
         run: |
-          curl -X POST "https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/jobs" \
-            -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
-            -H "Content-Type: application/json" \
-            -d '{
-              "startCommand": "bundle exec rake amedas:import",
-              "planId": "starter"
-            }'
-      
-      - name: Wait for job completion
-        run: sleep 30
-      
-      - name: Check job status
-        run: |
-          echo "Job triggered successfully!"
-          echo "Check Render dashboard for execution status:"
-          echo "https://dashboard.render.com/web/${{ secrets.RENDER_SERVICE_ID }}"
+          bundle install
+          bundle exec rake amedas:import
