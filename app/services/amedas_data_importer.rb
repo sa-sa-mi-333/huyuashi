@@ -20,7 +20,7 @@ class AmedasDataImporter
 
     # 処理高速化のため、全ての観測地点を集合としてメモリに読み込んでおく
     # 存在確認用で重複不要なのでsetクラスとして保持
-    stataions = SnowStation.pluck(:station_number).to_set
+    stations = SnowStation.pluck(:station_number).to_set
 
     # 処理しなかったデータのカウント用
     skipped_count = 0
