@@ -24,7 +24,6 @@ jobs:
       - name: Run Amedas Data Import
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          RAILS_ENV: production
         run: |
           bundle install
           bundle exec rake amedas:import
