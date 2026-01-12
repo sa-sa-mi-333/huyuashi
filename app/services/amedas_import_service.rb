@@ -1,4 +1,10 @@
 class AmedasImportService
+
+  # datetimeを渡してexecuteを実行するためのクラスメソッド
+  def self.import_datetime(datetime = Time.current)
+    new(datetime).execute
+  end
+
   # datetimeを準備する
   def initialize(datetime)
     @datetime = datetime
