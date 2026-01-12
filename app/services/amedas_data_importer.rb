@@ -27,7 +27,6 @@ class AmedasDataImporter
 
     # activerecordのトランザクションを継承して使う
     ActiveRecord::Base.transaction do
-
       # 全観測地点のデータを観測地点ごとのデータに分割する
       @json_data.each do |station_number_str, weather_data|
         # アメダスのデータではstation_numberが文字列になっているため変換
