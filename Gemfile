@@ -52,6 +52,9 @@ gem "devise"
 # csvファイルを扱うため追加
 gem "csv", require: false
 
+# 定時処理のために追加
+gem "whenever", require: false
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
