@@ -7,8 +7,8 @@ class ChangeJsonDateToBigintInAmedasRecords < ActiveRecord::Migration[8.0]
     change_column :amedas_records, :json_date, :bigint
   end
 
-#  def down
-#    # ロールバック時の処理
-#    change_column :amedas_records, :json_date, :integer
-#  end
+  def down
+    # ロールバック時の処理
+    change_column :amedas_records, :json_date, :integer
+  end
 end
