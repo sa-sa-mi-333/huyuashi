@@ -1,12 +1,12 @@
-# csvデータで与えられている全国の観測地点と積雪観測地点の情報をもとに
-# テーブルにレコードをインポートするRakeタスク
-# 初期設定時に実行することを想定する
 require "csv"
 
-namespace :import do
-  desc "csvファイルから積雪観測地点のデータをインポートする"
-  task snow_stations: :environment do
+class SnowStationImporter
+# CSVデータを元にアメダスの観測地点の情報をデータベースにインポートするメソッド
+  def self.import
+    new.import
+  end
 
+  def import
   # 全国版マスターをインポート
     puts "\n=== CSVデータを準備 ==="
     puts "  全国版マスターファイルをインポート"
@@ -178,14 +178,15 @@ namespace :import do
         }
       end
     end
+
     puts "  配列に格納：#{pre_data.size}件"
     puts "  積雪観測地点が見つからないデータ: #{not_found_stations.size}件"
-  #
 
-  puts "\nインポート開始"
+    puts "\nインポート開始"
     SnowStation.insert_all(pre_data)
     result_count = SnowStation.count
     puts "  #{result_count}件のデータをインポートしました"
+  #
   end
 
   private
