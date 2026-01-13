@@ -7,12 +7,12 @@ class ChangeJsonDateToBigintInAmedasRecords < ActiveRecord::Migration[8.0]
     change_column :amedas_records, :json_date, :bigint
   end
 
-  def down
-    # インデックスが存在する場合のみ削除
-    if index_exists?(:amedas_records, :station_number)
-      remove_index :amedas_records, :station_number
-    end
-    
-    remove_reference :amedas_records, :snow_station, foreign_key: true
-  end
+#  def down
+#    # インデックスが存在する場合のみ削除
+#    if index_exists?(:amedas_records, :station_number)
+#      remove_index :amedas_records, :station_number
+#    end
+#
+#    remove_reference :amedas_records, :snow_station, foreign_key: true
+#  end
 end
