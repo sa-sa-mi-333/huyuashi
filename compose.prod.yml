@@ -18,7 +18,7 @@ services:
       context: .
       # 本番環境用のDockerfileを参照する
       dockerfile: Dockerfile.prod
-    # cronデーモンの起動スクリプトをコメントアウト
+    # cronデーモンの起動スクリプトは本番では不要なのでコメントアウト
     #    command: >
     #      bash -c "
     #        service cron start &&

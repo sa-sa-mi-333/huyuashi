@@ -1,0 +1,30 @@
+name: Github Actions Amedas Data Import
+
+on:
+  schedule:
+    # 毎時8分に実行(UTC)
+    - cron: '8 * * * *'
+  
+  # 手動実行も可能にする
+  workflow_dispatch:
+
+jobs:
+  amedas-import-data:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+      - name: Run Amedas Data Import
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
+        run: |
+          bundle install
+          bundle exec rake amedas:import

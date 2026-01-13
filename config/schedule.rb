@@ -32,8 +32,8 @@ set :environment, rails_env
 # cronのログの吐き出し場所
 set :output, "#{Rails.root}/log/cron.log"
 
-# 毎時5分に実行
-every "5 * * * *" do
+# 毎時8分に実行
+every "8 * * * *" do
   rake "amedas:import"
 end
 

@@ -15,7 +15,14 @@ class AmedasDataImporter
     # データがなければ処理中断
     return if @json_data.nil? || @json_data.empty?
 
-    saved_count = 0
+    # 処理高速化のため、配列に格納して一括でデータを入れ込む方法に変更
+    records_for_insert = []
+
+    # 処理高速化のため、全ての観測地点を集合としてメモリに読み込んでおく
+    # 存在確認用で重複不要なのでsetクラスとして保持
+    stations = SnowStation.pluck(:station_number).to_set
+
+    # 処理しなかったデータのカウント用
     skipped_count = 0
 
     # activerecordのトランザクションを継承して使う
@@ -24,49 +31,40 @@ class AmedasDataImporter
       @json_data.each do |station_number_str, weather_data|
         # アメダスのデータではstation_numberが文字列になっているため変換
         station_number = station_number_str.to_i
-        # 観測地点のが存在するか確認
-        station = SnowStation.find_by(station_number: station_number)
         # 存在しない観測地点を参照しようとした場合は処理しない
-        unless station
+        unless stations.include?(station_number)
           Rails.logger.warn("No.#{station_number}の観測地点が見つかりません。処理をスキップします")
           skipped_count += 1
           next
         end
-
-        # AmedasRecordを作成
-        observation = AmedasRecord.new(
+        # 格納する値を抽出する
+        temp = extract_value(weather_data["temp"])
+        snow = extract_value(weather_data["snow"])
+        # tempとsnowは欠測でnilの可能性もあるがそのまま格納
+        records_for_insert << {
           station_number: station_number,
-          json_date: @timestamp
-        )
+          json_date: @timestamp,
+          temp: temp,
+          snow: snow,
+          created_at: Time.current,
+          updated_at: Time.current
+        }
+      end
 
-        # 気温と積雪深を入力するメソッド
-        set_weather_values(observation, weather_data)
-
-        # 各データを入力してからデータを保存
-        if observation.temp.present? || observation.snow.present?
-          Rails.logger.info("保存: station=#{station_number}, temp=#{observation.temp}, snow=#{observation.snow}")
-          observation.save!
-          saved_count += 1
-        else
-          Rails.logger.debug("データなし: station=#{station_number}")
-          skipped_count += 1
-        end
+      if records_for_insert.any?
+        Rails.logger.info("#{records_for_insert.size} 件のデータ一括挿入開始")
+        AmedasRecord.insert_all(records_for_insert)
+        Rails.logger.info("挿入完了")
       end
     end
 
     # 処理内容確認用
     Rails.logger.info("=== インポート完了 ===")
-    Rails.logger.info("保存件数: #{saved_count}件")
+    Rails.logger.info("保存件数: #{records_for_insert.size}件")
     Rails.logger.info("スキップ件数: #{skipped_count}件")
   end
 
   private
-
-  def set_weather_values(observation, data)
-    # amedas_recordにjsonデータの値を格納する
-    observation.temp = extract_value(data["temp"])
-    observation.snow = extract_value(data["snow"])
-  end
 
   # AQCの処理 array[1]が0ならarray[0]のデータを取得する
   def extract_value(array)
