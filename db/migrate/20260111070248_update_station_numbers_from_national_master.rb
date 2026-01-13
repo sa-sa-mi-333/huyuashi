@@ -131,10 +131,11 @@ puts "❌ エラー: #{error_count}件"
 puts "="*60
 end
 
-def down
-raise ActiveRecord::IrreversibleMigration,
-"観測所番号の更新は元に戻せません"
-end
+#def down
+#raise ActiveRecord::IrreversibleMigration,
+#"観測所番号の更新は元に戻せません"
+#end
+
 private
 
 def load_national_stations
