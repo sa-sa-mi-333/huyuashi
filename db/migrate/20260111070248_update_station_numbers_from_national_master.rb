@@ -1,6 +1,5 @@
 # station_numberとprefevtureを全国のアメダスマスターの内容に置き換える
 class UpdateStationNumbersFromNationalMaster < ActiveRecord::Migration[8.0]
-
 def up
 puts "\n" + "="*60
 puts "観測所番号の更新を開始します"
