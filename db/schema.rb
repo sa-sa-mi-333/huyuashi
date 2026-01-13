@@ -10,19 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_01_11_154028) do
+ActiveRecord::Schema[8.0].define(version: 2026_01_04_173419) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
-
-  create_table "amedas_records", force: :cascade do |t|
-    t.bigint "json_date"
-    t.float "temp"
-    t.integer "snow"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "station_number"
-    t.index ["station_number"], name: "index_amedas_records_on_station_number"
-  end
 
   create_table "snow_stations", force: :cascade do |t|
     t.integer "station_number", null: false, comment: "観測所番号"
@@ -67,7 +57,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_11_154028) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "amedas_records", "snow_stations", column: "station_number", primary_key: "station_number"
   add_foreign_key "user_statuses", "snow_stations", column: "station_number", primary_key: "station_number"
   add_foreign_key "user_statuses", "users"
 end

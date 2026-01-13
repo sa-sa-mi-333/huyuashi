@@ -1,7 +1,5 @@
 # station_numberとprefevtureを全国のアメダスマスターの内容に置き換える
 class UpdateStationNumbersFromNationalMaster < ActiveRecord::Migration[8.0]
-  # トランザクション起因のエラーが発生するため追加
-  disable_ddl_transaction!
 
   def up
     puts "\n" + "="*60
@@ -126,10 +124,10 @@ class UpdateStationNumbersFromNationalMaster < ActiveRecord::Migration[8.0]
     puts "="*60
   end
 
-  def down
-    raise ActiveRecord::IrreversibleMigration,
-          "観測所番号の更新は元に戻せません"
-  end
+#  def down
+#    raise ActiveRecord::IrreversibleMigration,
+#          "観測所番号の更新は元に戻せません"
+#  end
 
   private
 
