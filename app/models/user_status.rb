@@ -9,7 +9,7 @@ class UserStatus < ApplicationRecord
   before_validation :set_default_name, on: :create
 
   # 雪かきの状態を記録する
-  enum action_status: { inactive: 0, active: 1 }
+  enum :action_status, { inactive: 0, active: 1 }
 
   private
 
