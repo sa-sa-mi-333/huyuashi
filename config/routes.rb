@@ -33,7 +33,12 @@ Rails.application.routes.draw do
   end
 
   # user_recordのルーティング
-  resources :user_record, only: %i[new create update index]
+  resources :user_records, only: %i[new create update index] do
+    collection do
+      # 雪かき終了時の処理
+      patch :finish
+    end
+  end
 
   # static_pagesのルーティング
   # プライバシーポリシー

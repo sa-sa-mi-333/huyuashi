@@ -41,9 +41,15 @@
 
 <div class="max-w-md px-4 mx-auto border rounded-md shadow-lg border-gray-500/20 backdrop-blur-lg mb-4">
   <!-- 雪かき情報を表示 -->
-  <div class="my-4 m-10">
-    <p><%= t('.current_snow_depth') %><span class="font-semibold text-[#810002] text-2xl"><%= " + #{@latest_record&.snow.presence || t('.no_data')} cm" %></span></p>
-    <p><%= t('.work_time') %> <span class="font-semibold text-[#810002]">未実装の機能です</span></p>
+  <div>
+    <div class="my-4 m-10"><%= t('.current_snow_depth') %><span class="font-semibold text-[#810002] text-2xl"><%= " + #{@latest_record&.snow.presence || t('.no_data')} cm" %></span></div>
+    <div class="my-4 m-10"><%= t('.work_time') %> <span class="font-semibold text-[#810002]">未実装の機能です</span></div>
   </div>
-  <%= button_to "雪かきスタート", "#", method: :get, class:"btn-secondary text-3xl my-10" %>
+  <!-- action_statusによって雪かきスタート/ストップを切り替え -->
+  <% if current_user.user_status.inactive? %>
+    <%= button_to t('.start'), user_records_path, method: :post, class:"btn-secondary text-3xl my-10" %>
+  <% else %>
+    <p class="text-center pt-5">雪かき中…</p>
+    <%= button_to t('.stop'), finish_user_records_path, method: :patch, class:"btn-secondary text-3xl my-10" %>
+  <% end %>
 </div>

@@ -9,6 +9,8 @@ class User < ApplicationRecord
 
   # ユーザーに対してステータスを1つ紐付け
   has_one :user_status, dependent: :destroy
+  # ユーザーに対してレコードは複数
+  has_many :user_records, dependent: :destroy
   # 入力フォーム用に仮想属性を設定 userレコード作成と同時にnameも設定する
   attr_accessor :name
   # ユーザー作成後、ステータスレコードを作成する
