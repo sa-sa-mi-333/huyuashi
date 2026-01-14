@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_01_11_154028) do
+ActiveRecord::Schema[8.0].define(version: 2026_01_14_090233) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -45,12 +45,26 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_11_154028) do
     t.index ["station_number"], name: "index_snow_stations_on_station_number", unique: true
   end
 
+  create_table "user_records", force: :cascade do |t|
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.integer "start_snow_depth"
+    t.integer "end_snow_depth"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.integer "station_number"
+    t.index ["station_number"], name: "index_user_records_on_station_number"
+    t.index ["user_id"], name: "index_user_records_on_user_id"
+  end
+
   create_table "user_statuses", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "name", default: "名無しの雪だるま"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "station_number"
+    t.integer "action_status", default: 0, null: false
     t.index ["station_number"], name: "index_user_statuses_on_station_number"
     t.index ["user_id"], name: "index_user_statuses_on_user_id"
   end
@@ -68,6 +82,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_11_154028) do
   end
 
   add_foreign_key "amedas_records", "snow_stations", column: "station_number", primary_key: "station_number"
+  add_foreign_key "user_records", "snow_stations", column: "station_number", primary_key: "station_number"
+  add_foreign_key "user_records", "users"
   add_foreign_key "user_statuses", "snow_stations", column: "station_number", primary_key: "station_number"
   add_foreign_key "user_statuses", "users"
 end

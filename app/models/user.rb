@@ -17,7 +17,7 @@ class User < ApplicationRecord
   private
   # nameを受け取ってステータスレコードを作成する
   def create_user_status_record
-    create_user_status(name: name)
+    create_user_status(name: name, action_status: :inactive)
   end
 end
 
