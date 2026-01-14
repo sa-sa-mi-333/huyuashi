@@ -1,6 +1,6 @@
-<div class="max-w-md p-6 mx-auto border rounded-md shadow-lg border-gray-500/20 backdrop-blur-lg bg-gray-50/10">
+<% content_for(:title, t('.title')) %>
 
-  <% content_for(:title, t('.title')) %>
+<div class="max-w-md p-6 mx-auto border rounded-md shadow-lg border-gray-500/20 backdrop-blur-lg bg-gray-50/10">
 
   <!-- ログイン画面の入力フォームを配置 -->
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
