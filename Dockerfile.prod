@@ -56,6 +56,9 @@ ENV RAILS_ENV="production" \
 # 生成したgemとアプリ用のファイルをコピー
 COPY --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"
 COPY --from=build /myapp /rails
+# renderのcronjobを実行するためのファイルをコピー
+COPY cronjob_amedas_import.sh ./bin/cronjob_amedas_import.sh
+RUN chmod +x ./bin/cronjob_amedas_import.sh
 # Run and own only the runtime files as a non-root user for security
 RUN groupadd --system --gid 1000 rails && \
     useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash && \
