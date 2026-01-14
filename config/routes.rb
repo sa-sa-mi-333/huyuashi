@@ -32,6 +32,9 @@ Rails.application.routes.draw do
     end
   end
 
+  # user_recordのルーティング
+  resources :user_record, only: %i[new create update index]
+
   # static_pagesのルーティング
   # プライバシーポリシー
   get "static_pages/privacy_policy"

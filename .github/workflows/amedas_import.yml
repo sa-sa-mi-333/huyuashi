@@ -1,21 +1,21 @@
 name: Github Actions Amedas Data Import
 
 on:
-  schedule:
+  #schedule:
     # 毎時8分に実行(UTC)
-    - cron: '8 * * * *'
-  
+    #- cron: '8 * * * *'
+
   # 手動実行も可能にする
   workflow_dispatch:
 
 jobs:
   amedas-import-data:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
