@@ -10,6 +10,8 @@ ja:
       new:
         title: "新規登録ページ"
         sign_up: "新規登録"
+        privacy_policy: "プライバシーポリシー"
+        service_of_term: "利用規約"
 
     sessions:
       user:
