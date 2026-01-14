@@ -5,13 +5,7 @@ ja:
     change: "変更"
     back: "ブラウザバックで戻る"
 
-  static_pages:
-    before_login:
-      title: "トップページ(未ログイン)"
-    privacy_policy:
-      title: "プライバシーポリシー"
-    service_of_term:
-      title: "利用規約"
+
   home:
     top:
       title: "トップページ"
@@ -26,3 +20,15 @@ ja:
       work_time: "作業時間予測:"
       start: "雪かきスタート"
       stop: "雪かきストップ"
+
+  user_statuses:
+    select_station:
+      title: "観測地点選択"
+  static_pages:
+    before_login:
+      title: "トップページ(未ログイン)"
+    privacy_policy:
+      title: "プライバシーポリシー"
+    service_of_term:
+      title: "利用規約"
+      

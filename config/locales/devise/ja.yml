@@ -25,6 +25,7 @@ ja:
     passwords:
       # パスワードリセットリクエストボタン
       new:
+        title: "パスワードリセットリクエスト"
         send_me_reset_password_instructions: "パスワードリセット用メールを送信"
 
     # 共通ビューボタン部分
