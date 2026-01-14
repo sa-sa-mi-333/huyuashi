@@ -1,18 +1,38 @@
 <!-- デフォルトでは非表示にする -->
 <div>
   <nav class="hamburger-menu hidden fixed top-16 right-0 w-64 h-300 bg-[#d5e8f2] shadow-lg z-50">
-    <!-- メニュー項目 -->
-      <ul class="flex items-center hamburger-content">
-        <div class="text-[#004681] w-12 h-auto pl-4"><%= svg_tag "login" %></div>
-        <div>ログイン</div>
-      </ul>
-      <ul class="flex items-center hamburger-content">
-        <div class="text-[#004681] w-12 h-auto pl-4"><%= svg_tag "information"%></div>
-        <div>プライバシーポリシー</div>
-      </ul>
-      <ul class="flex items-center hamburger-content">
-        <div class="text-[#004681] w-12 h-auto pl-4"><%= svg_tag "information"%></div>
-        <div>利用規約</div>
-      </ul>
+    <!-- メニュー項目をログイン状態に応じて切り替える -->
+      <% if user_signed_in? %>
+        <!-- ログイン時： -->
+        <ul class="flex items-center hamburger-content">
+          <div class="text-[#004681] w-12 h-auto pl-4"><%= svg_tag "logout" %></div>
+          <div>ログアウト</div>
+        </ul>
+        <ul class="flex items-center hamburger-content">
+          <div class="text-[#004681] w-12 h-auto pl-4"><%= svg_tag "information"%></div>
+          <div>プライバシーポリシー</div>
+        </ul>
+        <ul class="flex items-center hamburger-content">
+          <div class="text-[#004681] w-12 h-auto pl-4"><%= svg_tag "information"%></div>
+          <div>利用規約</div>
+        </ul>
+        <ul class="flex items-center hamburger-content">
+          <div class="text-[#004681] w-12 h-auto pl-4"><%= svg_tag "mail"%></div>
+          <div>お問い合わせ</div>
+        </ul>
+      <% else %>
+        <ul class="flex items-center hamburger-content">
+          <div class="text-[#004681] w-12 h-auto pl-4"><%= svg_tag "login" %></div>
+          <div>ログイン</div>
+        </ul>
+        <ul class="flex items-center hamburger-content">
+          <div class="text-[#004681] w-12 h-auto pl-4"><%= svg_tag "information"%></div>
+          <div>プライバシーポリシー</div>
+        </ul>
+        <ul class="flex items-center hamburger-content">
+          <div class="text-[#004681] w-12 h-auto pl-4"><%= svg_tag "information"%></div>
+          <div>利用規約</div>
+        </ul>
+      <% end %>
   </nav>
 </div>
