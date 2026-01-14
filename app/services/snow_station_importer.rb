@@ -1,20 +1,20 @@
 require "csv"
 
 class SnowStationImporter
-# CSVデータを元にアメダスの観測地点の情報をデータベースにインポートするメソッド
+  # CSVデータを元にアメダスの観測地点の情報をデータベースにインポートするメソッド
   def self.import
     new.import
   end
 
   def import
-  # マスターをインポート
+    # マスターをインポート
     master_csv_path = get_master_csv_path
     snow_csv_path = get_snow_csv_path
 
-  # 全国版マスターの読み込み
+    # 全国版マスターの読み込み
     national_stations = load_national_stations(master_csv_path)
 
-  # 全国版マスターと積雪観測地点マスターの緯度経度を突き合わせて情報をまとめる
+    # 全国版マスターと積雪観測地点マスターの緯度経度を突き合わせて情報をまとめる
     puts "\n=== インポート用配列作成 ==="
     pre_data = []
     not_found_stations = []
@@ -23,11 +23,11 @@ class SnowStationImporter
     CSV.foreach(snow_csv_path, headers: true, encoding: "CP932:UTF-8") do |snow_row|
       # 緯度経度を10進数に変換
       snow_latitude_deg = convert_to_decimal_latitude(
-        snow_row["緯度(度)"].to_f, 
+        snow_row["緯度(度)"].to_f,
         snow_row["緯度(分)"].to_f
       )
       snow_longitude_deg = convert_to_decimal_longitude(
-        snow_row["経度(度)"].to_f, 
+        snow_row["経度(度)"].to_f,
         snow_row["経度(分)"].to_f
       )
       # 緯度経度がnilの場合は記録して次へ
@@ -103,7 +103,7 @@ class SnowStationImporter
     puts "  積雪観測地点が見つからないデータ: #{not_found_stations.size}件"
 
     puts "\nインポート開始"
-    if ActiveRecord::Base.connection.table_exists?('snow_stations')
+    if ActiveRecord::Base.connection.table_exists?("snow_stations")
       if SnowStation.exists?
         SnowStation.delete_all
         puts "既存データを削除しました"
@@ -242,7 +242,7 @@ class SnowStationImporter
   # user_statusesの参照を更新
   def update_user_statuses_references(old_number, new_number)
     # user_statusesテーブルが存在するか確認
-    return unless ActiveRecord::Base.connection.table_exists?('user_statuses')
+    return unless ActiveRecord::Base.connection.table_exists?("user_statuses")
 
     referenced_count = UserStatus.where(station_number: old_number).count
 
@@ -256,7 +256,7 @@ class SnowStationImporter
   # amedas_recordsの参照を更新
   def update_amedas_records_references(old_number, new_number)
     # amedas_recordsテーブルが存在するか確認
-    return unless ActiveRecord::Base.connection.table_exists?('amedas_records')
+    return unless ActiveRecord::Base.connection.table_exists?("amedas_records")
 
     referenced_count = AmedasRecord.where(station_number: old_number).count
 
