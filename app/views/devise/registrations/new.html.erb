@@ -1,6 +1,6 @@
-<div class="max-w-md p-6 mx-auto border rounded-md shadow-lg border-gray-500/20 backdrop-blur-lg bg-gray-50/10">
+<% content_for(:title, t('.title')) %>
 
-  <%= content_for(:title, t('.title')) %>
+<div class="max-w-md p-6 mx-auto border rounded-md shadow-lg border-gray-500/20 backdrop-blur-lg bg-gray-50/10">
 
   <!-- 新規登録画面の入力フォームを配置 -->
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
@@ -33,7 +33,7 @@
     <% end %>
     <div class="items-center inline-block w-full mx-auto my-2 text-center">
       <div class="text-sm">
-        <%= link_to "プライバシーポリシー", "#", class:"atag px-1" %> と <%= link_to "利用規約", "#", class:"atag px-1" %> に同意いただき
+        <%= link_to t('.privacy_policy'), static_pages_privacy_policy_path, class:"atag px-1" %> と <%= link_to t('.service_of_term'), static_pages_service_of_term_path, class:"atag px-1" %> に同意いただき
       </div>
     </div>
     <!-- 新規登録ボタン -->

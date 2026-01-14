@@ -10,6 +10,8 @@ ja:
       new:
         title: "新規登録ページ"
         sign_up: "新規登録"
+        privacy_policy: "プライバシーポリシー"
+        service_of_term: "利用規約"
 
     sessions:
       user:
@@ -25,6 +27,7 @@ ja:
     passwords:
       # パスワードリセットリクエストボタン
       new:
+        title: "パスワードリセットリクエスト"
         send_me_reset_password_instructions: "パスワードリセット用メールを送信"
 
     # 共通ビューボタン部分
