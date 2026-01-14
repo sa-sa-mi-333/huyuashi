@@ -8,6 +8,9 @@ class UserStatus < ApplicationRecord
   # バリデーションチェック前に対応
   before_validation :set_default_name, on: :create
 
+  # 雪かきの状態を記録する
+  enum action_status: { inactive: 0, active: 1 }
+
   private
 
   # nameがblankの場合デフォルト名を挿入
