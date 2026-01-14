@@ -1,6 +1,7 @@
+<% content_for(:title, t('.title')) %>
+
 <div class="max-w-md p-6 mx-auto border rounded-md shadow-lg border-gray-500/20 backdrop-blur-lg bg-gray-50/10">
   <!-- 積雪観測地点を選択する専用画面 未設定の場合はこのページに遷移する -->
-  <%= content_for(:title, t('.title')) %>
 
   <p>積雪観測地点を選択してください</p>
 
@@ -19,6 +20,6 @@
             :display_info,            # option の表示テキスト
             { prompt: "観測所を選択してください" }, class:"text-[#004681] max-w-full border-1 border-[#004681] rounded-sm my-1 p-1" %>
     </div>
-    <%= f.submit "設定する", class: "btn btn-primary" %>
+    <%= f.submit "#{t('shared.decide')}", class: "btn btn-primary" %>
   <% end %>
 </div>
