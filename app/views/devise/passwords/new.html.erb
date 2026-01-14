@@ -1,6 +1,6 @@
-<div class="max-w-md p-6 mx-auto border rounded-md shadow-lg border-gray-500/20 backdrop-blur-lg bg-gray-50/10">
+<% content_for(:title, t('.title')) %>
 
-  <%= content_for(:title, t('.title')) %>
+<div class="max-w-md p-6 mx-auto border rounded-md shadow-lg border-gray-500/20 backdrop-blur-lg bg-gray-50/10">
 
   <div class="text-[#004681] text-center my-5">入力されたメールアドレスにパスワードリセット用のメールを送信します</div>
   <!-- パスワードリセットリクエスト画面の入力フォームを配置 -->
@@ -18,5 +18,5 @@
   <% end %>
   -->
   実装まだ
-  <span class="text-sm font-medium text-left text-gray-700">ブラウザバックで戻る</span>
+  <span class="text-sm font-medium text-left text-gray-700"><%= t('shared.back') %></span>
 </div>
