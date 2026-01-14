@@ -1,8 +1,28 @@
 # ビューに関する語句の日本語化対応を行う
 ja:
+  shared:
+    decide: "決定"
+    change: "変更"
+    back: "ブラウザバックで戻る"
+
   static_pages:
     before_login:
       title: "トップページ(未ログイン)"
-    after_login:
-      title: "トップページ(ログイン)"
-      word: "ログイン後に遷移する暫定版ページです"
+    privacy_policy:
+      title: "プライバシーポリシー"
+    service_of_term:
+      title: "利用規約"
+  home:
+    top:
+      title: "トップページ"
+      current_station: "現在の観測地点:"
+      latest_record_time: "時時点:"
+      temp_within_24_hours: "直近24時間の気温"
+      max: "max:"
+      min: "min:"
+      no_data: "データなし"
+      current_snow_depth: "現在の観測地点の積雪深:"
+      add_snow_depth: "前回雪かきからの積雪深予想"
+      work_time: "作業時間予測:"
+      start: "雪かきスタート"
+      stop: "雪かきストップ"
