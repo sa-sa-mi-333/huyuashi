@@ -4,9 +4,13 @@ class UserStatusesController < ApplicationController
 
   # 積雪観測地点を選択する画面を表示
   def select_station
-    @user_status = current_user.user_status
-    # 都道府県振興局ごとにまとめた全観測地点のデータを準備 ビューで使う
-    @snow_stations_by_prefecture = SnowStation.all.group_by(&:prefecture)
+    if current_user.user_status.active?
+      redirect_to authenticated_root_path, alert: "雪かき中は積雪観測地点の変更はできません"
+    else
+      @user_status = current_user.user_status
+      # 都道府県振興局ごとにまとめた全観測地点のデータを準備 ビューで使う
+      @snow_stations_by_prefecture = SnowStation.all.group_by(&:prefecture)
+    end
   end
 
   def update_station
