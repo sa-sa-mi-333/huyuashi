@@ -68,6 +68,11 @@ group :development, :test do
   # RSpecを使ってテストを実行
   gem "rspec-rails"
   gem "factory_bot_rails"
+
+  # デバッグ用gemを追加
+  gem "byebug"
+  gem "better_errors"
+  gem "binding_of_caller"
 end
 
 group :development do
