@@ -1,20 +1,29 @@
 <div class="bg-[#004681] text-[#f6f5fa] px-5 py-2">
   <div class="flex items-center justify-center bg-transparent gap-15">
+
     <div class="opacity-50 cursor-pointer transition w-12
                 hover:opacity-100 hover:drop-shadow-[5px_5px_1px_rgba(0,0,0,0.5)]">
-      <%= svg_tag "home"%>
+      <%= link_to authenticated_root_path do %>
+        <%= svg_tag "home" %>
+      <% end %>
     </div>
     <div class="opacity-50 cursor-pointer transition w-12
                 hover:opacity-100 hover:drop-shadow-[5px_5px_1px_rgba(0,0,0,0.5)]">
-      <%= svg_tag "station"%>
+      <%= link_to select_station_user_status_path do %>
+        <%= svg_tag "station"%>
+      <% end %>
     </div>
     <div class="opacity-50 cursor-pointer transition w-12
                 hover:opacity-100 hover:drop-shadow-[5px_5px_1px_rgba(0,0,0,0.5)]">
-      <%= svg_tag "log"%>
+      <%= link_to "#" do %>
+        <%= svg_tag "log"%>
+      <% end %>
     </div>
     <div class="opacity-50 cursor-pointer transition w-12
                 hover:opacity-100 hover:drop-shadow-[5px_5px_1px_rgba(0,0,0,0.5)]">
-      <%= svg_tag "profile"%>
+      <%= link_to "#" do %>
+        <%= svg_tag "profile"%>
+      <% end %>
     </div>
   </div>
 </div>
