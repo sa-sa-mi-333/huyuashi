@@ -14,7 +14,7 @@ RSpec.describe UserStatus, type: :model do
     end
 
     it 'user_idがなければ無効' do
-      user_status = build(:user_status, user_id: '')
+      user_status = build(:user_status, user_id: nil)
       expect {
         user_status.save!
       }.to raise_error(ActiveRecord::RecordInvalid)
@@ -26,7 +26,7 @@ RSpec.describe UserStatus, type: :model do
   # default: 0, null: false
   describe 'station_statusのenum設定' do
 
-    context 'action_statusがnilの場合' do
+    context 'action_statusが未設定の場合' do
       it '「inactive」が設定される' do
         user_status = build(:user_status)
         expect(user_status.action_status).to eq('inactive')

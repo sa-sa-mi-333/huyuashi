@@ -55,7 +55,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'emailがなければ無効' do
-      user = build(:user, :invalid)
+      user = build(:user, email: nil)
       expect {
         user.save!
       }.to raise_error(ActiveRecord::RecordInvalid)
@@ -69,7 +69,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'パスワードがなければ無効' do
-      user = build(:user, password:'')
+      user = build(:user, password: nil)
       expect {
         user.save!
       }.to raise_error(ActiveRecord::RecordInvalid)
