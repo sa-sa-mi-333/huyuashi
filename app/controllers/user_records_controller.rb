@@ -15,7 +15,7 @@ class UserRecordsController < ApplicationController
 
     if @user_record.save
       current_user.user_status.update(action_status: :active)
-      redirect_to authenticated_root_path, notice: "雪かきレコード作成！"
+      redirect_to authenticated_root_path, notice: "雪かきを開始しました"
     else
       flash.now[:danger] = "レコード作成に失敗しました"
       redirect_to authenticated_root_path, alert: :unprocessable_entity
