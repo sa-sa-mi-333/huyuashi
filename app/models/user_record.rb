@@ -4,60 +4,73 @@ class UserRecord < ApplicationRecord
               foreign_key: :station_number,
               primary_key: :station_number
 
-  # 開始時の積雪深を計算
+  # 積雪深を計算
   def calculate_snow_depth(time)
-    calculate_snow_depth_at(start_time)
-  end
+    # 積雪深算出用レコードを準備
+    before_record = find_before_record(time)
+    after_record = find_after_record(time)
 
-  # 終了時の積雪深を計算
-  def calculate_end_snow_depth
-    # after_recordがない場合は一旦nilを返す
-    snow_depth = calculate_snow_depth_at(end_time)
+    # レコードがなければnilを返す
+    return nil unless before_record && after_record
 
-    # 補間計算ができなかった場合はnilを返す
-    return nil unless depth
-    depth
-  end
-
-  private
-  
-  def calculate_snow_depth_at(time)
-    # timeがなければnilを返す
-    return nil unless time
-    # time以前の直近のレコードを探す
-    before_record = AmedasRecord.where(station_number: station_number)
-                                .where('recorded_at <= ?', time)
-                                .order(recorded_at: :desc)
-                                .first
-    # time以降の直近のレコードを探す
-    after_record = AmedasRecord.where(station_number: station_number)
-                               .where('recorded_at > ?', time)
-                               .order(recorded_at: :asc)
-                               .first
-    
-    # 前後のレコードが揃っていれば補間計算を実施
-    if before_record && after_record
-      interpolate_snow_depth(before_record, after_record, time)
-    # after_recordがない場合はnilを返す(後で再計算)
-    elsif before_record && !after_record
-      nil
-    # before_recordがない場合はafter_recordの値を使用
-    elsif !before_record && after_record
-      after_record.snow_depth
-    # どちらもない場合はnilを返す
+    # 初回の計算方法と2回目以降の計算方法が異なるため分岐
+    if previous_user_record.nil?
+      # 初回雪かきレコードの補間積雪深算出
+      first_snow_depth(before_record, after_record, time)
     else
-      nil
+      # 2回目以降の雪かきレコードの補間積雪深算出
+      subsequent_snow_depth(before_record, after_record, time, previous_user_record)
     end
   end
 
-  def interpolate_snow_depth(before_record, after_record, time)
+  private
+
+  def first_snow_depth(before_record, after_record, time)
     # 2つのレコードの差分(時間単位)を秒数で求める
     total_seconds = (after_record.created_at - before_record.created_at).to_f
+    return before_record.snow if total_seconds.zero?
     # メソッドを実行した時間と、それ以前の直近レコードとの差分(分単位)を秒数で求める
     elapsed_seconds = (time - before_record.created_at).to_f
-    # 初回積雪深の差分 後から取得したレコード - 直近レコード
-    depth_diff = after_record.snow_depth - before_record.snow_depth
-    # 小数点以下は丸め、積雪深をcm単位で返す
-    (before_record.snow_depth + (depth_diff * elapsed_seconds / total_seconds)).round(0)
+    # 1時間あたりの積雪深：後から取得したレコード - 直近レコード
+    depth_diff = after_record.snow - before_record.snow
+    # 初回雪かきの積雪深：アメダスレコードの値+XX分の積雪増加分 小数点以下は丸め、積雪深をcm単位で返す
+    (before_record.snow + (depth_diff * elapsed_seconds / total_seconds)).round(0)
+  end
+
+  def subsequent_snow_depth(before_record, after_record, time, previous_record)
+    # 2つのレコードの差分(時間単位)を秒数で求める
+    total_seconds = (after_record.created_at - before_record.created_at).to_f
+    return previous_record.snow if total_seconds.zero?
+    # メソッドを実行した時間と、それ以前の直近レコードとの差分(分単位)を秒数で求める
+    elapsed_seconds = (time - before_record.created_at).to_f
+    # 1時間あたりの積雪深：後から取得したレコード - 直近レコード
+    depth_diff = after_record.snow - before_record.snow
+    # 2回目以降雪かきの積雪深：前回雪かきレコードの値+XX分の積雪増加分 小数点以下は丸め、積雪深をcm単位で返す
+    (previous_record.snow + (depth_diff * elapsed_seconds / total_seconds)).round(0)
+  end
+
+  def find_before_record(time)
+    # time以前の直近のレコードを取得する
+    before_record = AmedasRecord.where(station_number: station_number)
+                                .where('created_at <= ?', time)
+                                .order(created_at: :desc)
+                                .first
+  end
+
+  def find_after_record(time)
+    # time以降の直近のレコードを取得する
+    after_record = AmedasRecord.where(station_number: station_number)
+                                .where('created_at > ?', time)
+                                .order(created_at: :asc)
+                                .first
+  end
+
+  def previous_user_record
+    # 直近のuser_recordを取得する
+    UserRecord.where(user_id: user_id)
+              .where(station_number: station_number)
+              .where('created_at < ?', created_at || Time.current)
+              .order(created_at: :desc)
+              .first
   end
 end
