@@ -3,44 +3,52 @@ require 'rails_helper'
 
 RSpec.describe UserStatus, type: :model do
   describe 'バリデーション' do
+    # station_numberはnilを許可 snow_station側で確認する
+
     # belongs_to:user
     it 'user_idがあれば有効' do
-      user = User.create(email: 'test@example.com', password: 'password')
-      user_status = user.user_status
-      expect(user_status).to be_valid
-      expect(user_status.errors).to be_empty
+      user = create(:user)
+      expect(user.user_status).to be_valid
+      expect(user.user_status.errors).to be_empty
     end
 
     it 'user_idがなければ無効' do
+      user_status = build(:user_status, user_id: nil)
       expect {
-        UserStatus.create!
+        user_status.save!
       }.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
 
-  # t.string "name", default: "名無しの雪だるま"
-  describe 'nameがあれば入力内容を、未入力ならデフォルト名を設定' do
-    # name=  blank
-    context 'nameが空の場合' do
-      it 'デフォルト値「名無しの雪だるま」が設定される' do
-        user = User.create(email: 'test@example.com', password: 'password', name: '')
-        expect(user.user_status.name).to eq('名無しの雪だるま')
+  # コールバックのnameチェックはuserモデル側で実施
+
+  # default: 0, null: false
+  describe 'station_statusのenum設定' do
+    context 'action_statusが未設定の場合' do
+      it '「inactive」が設定される' do
+        user_status = build(:user_status)
+        expect(user_status.action_status).to eq('inactive')
       end
     end
 
-    # name = nil
-    context 'nameがnilの場合' do
-      it 'デフォルト値「名無しの雪だるま」が設定される' do
-        user = User.create(email: 'test@example.com', password: 'password')
-        expect(user.user_status.name).to eq('名無しの雪だるま')
+    context 'enumキーが設定されている場合' do
+      it '「inactive」なら有効' do
+        user_status = build(:user_status, action_status: 'inactive')
+        expect(user_status.action_status).to eq('inactive')
+      end
+
+      it '「active」なら有効' do
+        user_status = build(:user_status, action_status: 'active')
+        expect(user_status.action_status).to eq('active')
       end
     end
 
-    # name = xxx
-    context 'nameが指定されている場合' do
-      it '指定されたnameが設定される' do
-        user = User.create(email: 'test@example.com', password: 'password', name: '太郎')
-        expect(user.user_status.name).to eq('太郎')
+    context 'enumキー以外が設定されている場合' do
+      it 'enumに設定されていない値は無効' do # enumの他の値にバリデーションを設定
+        user_status = build(:user_status, action_status: 'pending')
+        expect {
+          user_status.save!
+        }.to raise_error(ActiveRecord::RecordInvalid)
       end
     end
   end
