@@ -35,6 +35,7 @@ set :output, "#{Rails.root}/log/cron.log"
 # 毎時8分に実行
 every "8 * * * *" do
   rake "amedas:import"
+  rake "snow_depth:update_all"
 end
 
 # ログローテーション(毎日0時に実行)
