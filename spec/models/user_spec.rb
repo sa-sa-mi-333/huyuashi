@@ -11,7 +11,7 @@ RSpec.describe User, type: :model do
 
     # dependent: :destroy
     it 'ユーザー削除時にUserStatusも削除される' do
-      user = User.create(email: 'delete_test@example.com', password: 'password')
+      user = create(:user)
       user_status_id = user.user_status.id
       user.destroy
       expect(UserStatus.find_by(id: user_status_id)).to be_nil
@@ -22,53 +22,63 @@ RSpec.describe User, type: :model do
     #  after_create :create_user_status_record
     it 'ユーザー作成時にUserStatusも作成される' do
       expect {
-        User.create(email: 'callback_test@example.com', password: 'password')
+        create(:user)
       }.to change(UserStatus, :count).by(1)
     end
 
     # nameを受け取ってステータスレコードを作成する
     it 'nameを指定した場合、UserStatusのnameに反映される' do
-      user = User.create(email: 'name_test@example.com', password: 'password', name: '太郎')
+      user = create(:user, :with_name, user_name: '太郎')
       expect(user.user_status.name).to eq('太郎')
+    end
+
+    it 'nameを指定しない場合、UserStatusにデフォルト名が反映される' do
+      user = create(:user)
+      expect(user.user_status.name).to eq('名無しの雪だるま')
     end
   end
 
   describe 'バリデーション' do
     # devise側のバリデーションが有効か確認
     it 'emailがありパスワードが6文字以上で有効' do
-      user = User.create(email: 'valid_test@example.com', password: 'password')
+      user = build(:user)
       expect(user).to be_valid
       expect(user.errors).to be_empty
     end
 
     it 'emailが重複していれば無効' do
-      user = User.create(email: 'valid_test@example.com', password: 'password')
+      user = create(:user)
+      user_duplicated = build(:user, email:user.email)
       expect {
-        User.create!(email: 'valid_test@example.com', password: 'password')
+        user_duplicated.save!
       }.to raise_error(ActiveRecord::RecordInvalid)
     end
 
     it 'emailがなければ無効' do
+      user = build(:user, :invalid)
       expect {
-        User.create!(email: '', password: 'password')
+        user.save!
       }.to raise_error(ActiveRecord::RecordInvalid)
     end
 
     it 'emailに@がなければ無効' do
+      user = build(:user, email: 'testexample.com')
       expect {
-        User.create!(email: 'testexample.com', password: 'password')
+        user.save!
       }.to raise_error(ActiveRecord::RecordInvalid)
     end
 
     it 'パスワードがなければ無効' do
+      user = build(:user, password:'')
       expect {
-        User.create!(email: 'password_test@example.com', password: '')
+        user.save!
       }.to raise_error(ActiveRecord::RecordInvalid)
     end
 
     it 'パスワードが6文字未満なら無効' do
+      user = build(:user, password: '12345')
       expect {
-        User.create!(email: 'shortpass_test@example.com', password: '12345')
+        user.save!
       }.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
