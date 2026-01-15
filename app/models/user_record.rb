@@ -55,7 +55,7 @@ class UserRecord < ApplicationRecord
   def find_before_record(time)
     # time以前の直近のレコードを取得する
     before_record = AmedasRecord.where(station_number: station_number)
-                                .where('created_at <= ?', time)
+                                .where("created_at <= ?", time)
                                 .order(created_at: :desc)
                                 .first
   end
@@ -63,7 +63,7 @@ class UserRecord < ApplicationRecord
   def find_after_record(time)
     # time以降の直近のレコードを取得する
     after_record = AmedasRecord.where(station_number: station_number)
-                                .where('created_at > ?', time)
+                                .where("created_at > ?", time)
                                 .order(created_at: :asc)
                                 .first
   end
@@ -72,7 +72,7 @@ class UserRecord < ApplicationRecord
     # 直近のuser_recordを取得する
     UserRecord.where(user_id: user_id)
               .where(station_number: station_number)
-              .where('created_at < ?', created_at || Time.current)
+              .where("created_at < ?", created_at || Time.current)
               .order(created_at: :desc)
               .first
   end
