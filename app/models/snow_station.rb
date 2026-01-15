@@ -5,7 +5,7 @@ class SnowStation < ApplicationRecord
            foreign_key: :station_number,
            dependent: :destroy
 
-  validates :station_number, presence:true, uniqueness: true
+  validates :station_number, presence: true, uniqueness: true
   validates :prefecture, presence: true
   validates :station_name, presence: true
   validates :created_at, presence: true

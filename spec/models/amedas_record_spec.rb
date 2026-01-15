@@ -40,7 +40,7 @@ RSpec.describe AmedasRecord, type: :model do
   describe 'データの作成' do
     it '複数のAmedasRecordが同じSnowStationに紐づけられる' do
       snow_station = create(:snow_station)
-      
+
       expect {
         create(:amedas_record, snow_station: snow_station, json_date: 20250101000000)
         create(:amedas_record, snow_station: snow_station, json_date: 20260101000000)

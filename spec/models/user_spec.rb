@@ -48,7 +48,7 @@ RSpec.describe User, type: :model do
 
     it 'emailが重複していれば無効' do
       user = create(:user)
-      user_duplicated = build(:user, email:user.email)
+      user_duplicated = build(:user, email: user.email)
       expect {
         user_duplicated.save!
       }.to raise_error(ActiveRecord::RecordInvalid)

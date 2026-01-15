@@ -3,7 +3,6 @@ require 'rails_helper'
 
 RSpec.describe UserStatus, type: :model do
   describe 'バリデーション' do
-
     # station_numberはnilを許可 snow_station側で確認する
 
     # belongs_to:user
@@ -25,7 +24,6 @@ RSpec.describe UserStatus, type: :model do
 
   # default: 0, null: false
   describe 'station_statusのenum設定' do
-
     context 'action_statusが未設定の場合' do
       it '「inactive」が設定される' do
         user_status = build(:user_status)

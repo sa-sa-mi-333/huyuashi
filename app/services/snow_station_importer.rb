@@ -103,16 +103,16 @@ class SnowStationImporter
     puts "  積雪観測地点が見つからないデータ: #{not_found_stations.size}件"
 
     puts "\nインポート開始"
-    #if ActiveRecord::Base.connection.table_exists?("snow_stations")
-      #if SnowStation.exists?
-        #SnowStation.delete_all
-        #puts "既存データを削除しました"
-      #else
-        #puts "既存データがありません"
-      #end
-    #else
+      # if ActiveRecord::Base.connection.table_exists?("snow_stations")
+      # if SnowStation.exists?
+      # SnowStation.delete_all
+      # puts "既存データを削除しました"
+      # else
+      # puts "既存データがありません"
+      # end
+      # else
       puts "初期データを作成します"
-    #end
+    # end
 
     # データ作成処理
     # 主キーをstation_numberとしているので、明示的に示す

@@ -12,25 +12,25 @@ RSpec.describe SnowStation, type: :model do
       snow_station = create(:snow_station)
       # station_numberは自動的に一致するように設定される
       amedas_record = create(:amedas_record, snow_station: snow_station)
-      
+
       expect {
         snow_station.destroy
       }.to change(AmedasRecord, :count).by(-1)
-      
+
       # station_numberで検索
       expect(AmedasRecord.find_by(station_number: snow_station.station_number)).to be_nil
     end
-    
+
     it '複数のAmedasRecordが同じstation_numberで紐づく' do
       snow_station = create(:snow_station)
-      
-      amedas_record1 = create(:amedas_record, 
+
+      amedas_record1 = create(:amedas_record,
                               snow_station: snow_station,
                               json_date: 20250111110000)
-      amedas_record2 = create(:amedas_record, 
+      amedas_record2 = create(:amedas_record,
                               snow_station: snow_station,
                               json_date: 20260111110000)
-      
+
       expect(snow_station.amedas_records.count).to eq(2)
       expect(amedas_record1.station_number).to eq(snow_station.station_number)
       expect(amedas_record2.station_number).to eq(snow_station.station_number)
@@ -47,16 +47,16 @@ RSpec.describe SnowStation, type: :model do
     it '観測所番号が重複していれば無効' do
       existing_station = create(:snow_station)
       duplicate_station = build(:snow_station, station_number: existing_station.station_number)
-      
+
       expect(duplicate_station).not_to be_valid
       expect(duplicate_station.errors[:station_number]).to be_present
     end
-    
+
     # DB制約のテスト(uniqueness制約)
     it '観測所番号の重複でActiveRecord::RecordNotUniqueが発生する' do
       existing_station = create(:snow_station)
       duplicate_station = build(:snow_station, station_number: existing_station.station_number)
-      
+
       # バリデーションをスキップして保存を試みる
       expect {
         duplicate_station.save(validate: false)
