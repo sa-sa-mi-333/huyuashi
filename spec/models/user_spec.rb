@@ -11,7 +11,7 @@ RSpec.describe User, type: :model do
 
     # dependent: :destroy
     it 'ユーザー削除時にUserStatusも削除される' do
-      user = User.create(email: 'test@example.com', password: 'password')
+      user = User.create(email: 'delete_test@example.com', password: 'password')
       user_status_id = user.user_status.id
       user.destroy
       expect(UserStatus.find_by(id: user_status_id)).to be_nil
@@ -22,13 +22,13 @@ RSpec.describe User, type: :model do
     #  after_create :create_user_status_record
     it 'ユーザー作成時にUserStatusも作成される' do
       expect {
-        User.create(email: 'test@example.com', password: 'password')
+        User.create(email: 'callback_test@example.com', password: 'password')
       }.to change(UserStatus, :count).by(1)
     end
 
     # nameを受け取ってステータスレコードを作成する
     it 'nameを指定した場合、UserStatusのnameに反映される' do
-      user = User.create(email: 'test@example.com', password: 'password', name: '太郎')
+      user = User.create(email: 'name_test@example.com', password: 'password', name: '太郎')
       expect(user.user_status.name).to eq('太郎')
     end
   end
@@ -36,9 +36,16 @@ RSpec.describe User, type: :model do
   describe 'バリデーション' do
     # devise側のバリデーションが有効か確認
     it 'emailがありパスワードが6文字以上で有効' do
-      user = User.create(email: 'test@example.com', password: 'password')
+      user = User.create(email: 'valid_test@example.com', password: 'password')
       expect(user).to be_valid
       expect(user.errors).to be_empty
+    end
+
+    it 'emailが重複していれば無効' do
+      user = User.create(email: 'valid_test@example.com', password: 'password')
+      expect {
+        User.create!(email: 'valid_test@example.com', password: 'password')
+      }.to raise_error(ActiveRecord::RecordInvalid)
     end
 
     it 'emailがなければ無効' do
@@ -55,13 +62,13 @@ RSpec.describe User, type: :model do
 
     it 'パスワードがなければ無効' do
       expect {
-        User.create!(email: 'test@example.com', password: '')
+        User.create!(email: 'password_test@example.com', password: '')
       }.to raise_error(ActiveRecord::RecordInvalid)
     end
 
     it 'パスワードが6文字未満なら無効' do
       expect {
-        User.create!(email: 'test@example.com', password: '12345')
+        User.create!(email: 'shortpass_test@example.com', password: '12345')
       }.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
