@@ -2,10 +2,13 @@
 namespace :snow_depth do
   desc '未確定の積雪深をまとめて更新'
   task update_all: :environment do
+    # 終了時積雪深の再計算
+    Rake::Task['snow_depth:update_end_snow_depth'].invoke
+    puts "===.積雪深の再計算が完了しました ==="
+
     puts "===.積雪深の再計算を開始します ==="
     # 開始時積雪深の再計算
-    # 終了時積雪深の再計算
-    puts "===.積雪深の再計算が完了しました ==="
+    Rake::Task['snow_depth:update_start_snow_depth'].invoke
   end
 
   desc '未確定の開始時積雪深を更新'
@@ -13,9 +16,10 @@ namespace :snow_depth do
     # 開始積雪深が未確定のレコードを取得
     pending_records = UserRecord.where(start_snow_depth: nil)
                                 .where.not(start_time: nil)
-    puts "  開始時積雪深の保留件数: #{pending_record}件"
+    puts "  開始時積雪深の保留件数: #{pending_records.count}件"
     pending_records.find_each do |record|
       # 再計算を試みる
+      puts "start_snow: #{record.start_snow_depth} cm"
       start_snow_depth = record.calculate_snow_depth(record.start_time)
       
       if start_snow_depth
@@ -32,7 +36,7 @@ namespace :snow_depth do
     # 終了時積雪深が未確定のレコードを取得
     pending_records = UserRecord.where(end_snow_depth: nil)
                                 .where.not(end_time: nil)
-    puts "  開始時積雪深の保留件数: #{pending_record}件"
+    puts "  開始時積雪深の保留件数: #{pending_records.count}件"
     pending_records.find_each do |record|
       # 再計算を試みる
       end_snow_depth = record.calculate_snow_depth(record.end_time)
