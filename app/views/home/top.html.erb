@@ -40,9 +40,12 @@
 </div>
 
 <div class="max-w-md px-4 mx-auto border rounded-md shadow-lg border-gray-500/20 backdrop-blur-lg mb-4">
-  <!-- 雪かき情報を表示 -->
   <div>
+    <!-- 現在の積雪深 -->
     <div class="my-4 m-10"><%= t('.current_snow_depth') %><span class="font-semibold text-[#810002] text-2xl"><%= " + #{@latest_record&.snow.presence || t('.no_data')} cm" %></span></div>
+    <!-- 前回雪かきからの増減 -->
+    <div class="my-4 m-10"><%= format_snow_depth_since_last_work(current_user, current_user.user_status.station_number) %></div>
+    <!-- 作用時間良族 -->
     <div class="my-4 m-10"><%= t('.work_time') %> <span class="font-semibold text-[#810002]">未実装の機能です</span></div>
   </div>
   <!-- action_statusによって雪かきスタート/ストップを切り替え -->
