@@ -38,8 +38,8 @@ class AmedasDataFetcher
   private
 
   def build_timestamp
-    # yyyy/mm/dd hhまでの形式に変換し、mmss部分は全て0とする
-    @datetime.strftime("%Y%m%d%H").to_i * 10000
+    # amedas_recordのヘルパーメソッドを使う
+    fetch_time = AmedasRecord.time_to_hourly_json_date(Time.current)
   end
 
   def build_url

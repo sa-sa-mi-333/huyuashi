@@ -9,71 +9,56 @@ class UserRecord < ApplicationRecord
     # 積雪深算出用レコードを準備
     before_record = find_before_record(time)
     after_record = find_after_record(time)
-    previous_record = previous_user_record
 
     # レコードがなければnilを返す
     return nil unless before_record && after_record
 
-    # 初回の計算方法と2回目以降の計算方法が異なるため分岐
-    if previous_record.nil? || previous_record.end_snow_depth.nil?
-      # 初回雪かきレコードの補間積雪深算出
-      first_snow_depth(before_record, after_record, time)
-    else
-      # 2回目以降の雪かきレコードの補間積雪深算出
-      subsequent_snow_depth(before_record, after_record, time, previous_user_record)
-    end
+    # 常にアメダスデータから線形補間で計算
+    interpolate_snow_depth(before_record, after_record, time)
   end
 
   private
 
+  def interpolate_snow_depth(before_record, after_record, time)
+    # before_recordの時刻
+    before_time = AmedasRecord.json_date_to_time(before_record.json_date)
+    # after_recordの時刻
+    after_time = AmedasRecord.json_date_to_time(after_record.json_date)
 
-  def first_snow_depth(before_record, after_record, time)
-    # 2つのレコードの差分(時間単位)を秒数で求める
-    total_seconds = ((after_record.created_at - before_record.created_at)/3600).ceil * 3600
-    return before_record.snow if total_seconds.zero?
-    # メソッドを実行した時間と、それ以前の直近レコードとの差分(分単位)を秒数で求める
-    elapsed_seconds = ((time - before_record.created_at)/60).ceil * 60
-    # 1時間あたりの積雪深：後から取得したレコード - 直近レコード
-    depth_diff = after_record.snow - before_record.snow
+    # 2つのレコードの時間差(分)
+    total_minutes = ((after_time - before_time) / 60).to_f
+    return before_record.snow if total_minutes.zero?
 
-    # 初回雪かきの積雪深：アメダスレコードの値+XX分の積雪増加分 小数点以下は丸め、積雪深をcm単位で返す
-    (before_record.snow + (depth_diff * elapsed_seconds / total_seconds).round(0))
-  end
+    # timeとbefore_recordの時間差(分)
+    elapsed_minutes = ((time - before_time) / 60).to_f
 
-  def subsequent_snow_depth(before_record, after_record, time, previous_record)
-    # 2つのレコードの差分(時間単位)を秒数で求める
-    total_seconds = ((after_record.created_at - before_record.created_at)/3600).ceil * 3600
-    return previous_record.end_snow_depth if total_seconds.zero?
-    # メソッドを実行した時間と、それ以前の直近レコードとの差分(分単位)を秒数で求める
-    elapsed_seconds = ((time - before_record.created_at)/60).ceil * 60
-    # 1時間あたりの積雪深：後から取得したレコード - 直近レコード
-    depth_diff = after_record.snow - before_record.snow
-    # 2回目以降雪かきの積雪深：前回雪かきレコードの値+XX分の積雪増加分 小数点以下は丸め、積雪深をcm単位で返す
-    (previous_record.end_snow_depth + (depth_diff * elapsed_seconds / total_seconds)).round(0)
+    # 1分あたりの積雪増加量
+    depth_per_minute = (after_record.snow - before_record.snow) / total_minutes
+
+    # 補間した積雪深を計算
+    interpolated_depth = before_record.snow + (depth_per_minute * elapsed_minutes)
+
+    # 小数点以下を四捨五入して返す
+    interpolated_depth.round(0)
   end
 
   def find_before_record(time)
-    # time以前の直近のレコードを取得する
-    before_record = AmedasRecord.where(station_number: station_number)
-                                .where("created_at <= ?", time)
-                                .order(created_at: :desc)
-                                .first
+    # timeより前の時刻のレコードを取得 json_dateを数値として比較する
+    target_json_date = AmedasRecord.time_to_hourly_json_date(time)
+
+    AmedasRecord.where(station_number: station_number)
+                .where("json_date <= ?", target_json_date)
+                .order(json_date: :desc)
+                .first
   end
 
   def find_after_record(time)
-    # time以降の直近のレコードを取得する
-    after_record = AmedasRecord.where(station_number: station_number)
-                                .where("created_at > ?", time)
-                                .order(created_at: :asc)
-                                .first
-  end
+    # timeより後の時刻のレコードを取得 json_dateを数値として比較する
+    target_json_date = AmedasRecord.time_to_hourly_json_date(time)
 
-  def previous_user_record
-    # 直近のuser_recordを取得する
-    UserRecord.where(user_id: user_id)
-              .where(station_number: station_number)
-              .where("created_at < ?", created_at || Time.current)
-              .order(created_at: :desc)
-              .first
+    AmedasRecord.where(station_number: station_number)
+                .where("json_date > ?", target_json_date)
+                .order(json_date: :asc)
+                .first
   end
 end

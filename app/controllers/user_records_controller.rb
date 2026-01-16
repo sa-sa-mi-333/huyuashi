@@ -13,6 +13,9 @@ class UserRecordsController < ApplicationController
       start_time: Time.current
     )
 
+    # 積雪深を計算
+    @user_record.start_snow_depth = @user_record.calculate_snow_depth(@user_record.start_time)
+
     if @user_record.save
       current_user.user_status.update(action_status: :active)
       redirect_to authenticated_root_path, notice: "雪かきを開始しました"
@@ -38,6 +41,10 @@ class UserRecordsController < ApplicationController
 
     @user_record.end_time = Time.current
 
+    # 積雪深を計算
+    @user_record.start_snow_depth = @user_record.calculate_snow_depth(@user_record.start_time)
+    @user_record.end_snow_depth = @user_record.calculate_snow_depth(@user_record.end_time)
+
     if @user_record.save
       current_user.user_status.update(action_status: :inactive)
       redirect_to authenticated_root_path, notice: "雪かき終了！お疲れさまでした！"
@@ -49,6 +56,7 @@ class UserRecordsController < ApplicationController
 
   private
 
+  # 雪かき詳細情報を追加するときに設定する
   def user_record_param
   end
 end

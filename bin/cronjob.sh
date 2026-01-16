@@ -2,4 +2,4 @@
 set -e
 
 bundle exec rake amedas:import
-bundle exec rake snow_depth:update_all
+bundle exec rake user_records:calculate_snow_depths
