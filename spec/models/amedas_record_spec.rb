@@ -42,9 +42,43 @@ RSpec.describe AmedasRecord, type: :model do
       snow_station = create(:snow_station)
 
       expect {
-        create(:amedas_record, snow_station: snow_station, json_date: 20250101000000)
-        create(:amedas_record, snow_station: snow_station, json_date: 20260101000000)
+        create(:amedas_record, :at_time,
+              snow_station: snow_station,
+              time: Time.zone.parse('2025-10-10 00:00:00'))
+        create(:amedas_record, :at_time,
+              snow_station: snow_station,
+              time: Time.zone.parse('2026-01-01 00:00:00'))
       }.to change(snow_station.amedas_records, :count).by(2)
+    end
+  end
+
+  describe 'ヘルパーメソッド' do
+    context '.time_to_hourly_json_date' do
+      it '時刻を00分00秒に丸める' do
+        # 13:45:30 → 13:00:00
+        time = Time.zone.parse('2026-01-15 13:45:30')
+        json_date = AmedasRecord.time_to_hourly_json_date(time)
+        
+        expect(json_date).to eq(20260115130000)
+      end
+      
+      it '既に00分00秒の場合はそのまま' do
+        time = Time.zone.parse('2026-01-15 13:00:00')
+        json_date = AmedasRecord.time_to_hourly_json_date(time)
+        
+        expect(json_date).to eq(20260115130000)
+      end
+    end
+
+    context '.json_date_to_time' do
+      it 'json_dateをtime形式に変換する' do
+        # 2026/01/23 → 04:56:07 JST
+        json_date = 20260123045607
+        result = AmedasRecord.json_date_to_time(json_date)
+        
+        # Time型同士で比較
+        expect(result).to eq(Time.zone.parse('2026-01-23 04:56:07'))
+      end
     end
   end
 end
