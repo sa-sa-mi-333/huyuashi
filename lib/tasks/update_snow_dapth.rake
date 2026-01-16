@@ -10,7 +10,7 @@ namespace :user_records do
         puts "UserRecord ##{user_record.id}: start_snow_depth = #{calculated_start}"
       end
     end
-    
+
     # end_snow_depthがnilのレコードを取得
     UserRecord.where(end_snow_depth: nil).where.not(end_time: nil).find_each do |user_record|
       calculated_end = user_record.calculate_snow_depth(user_record.end_time)
@@ -19,7 +19,7 @@ namespace :user_records do
         puts "UserRecord ##{user_record.id}: end_snow_depth = #{calculated_end}"
       end
     end
-    
+
     puts "積雪深の計算が完了しました!"
   end
 end

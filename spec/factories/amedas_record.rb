@@ -12,14 +12,14 @@ FactoryBot.define do
 
     # デフォルト値: 2026-01-15 13:00:00
     json_date { 20260115130000 } # null
-    
+
     # トレイト: 特定の時刻を指定
     trait :at_time do
       transient do
         # テストで時刻を指定できるようにする
         time { Time.zone.parse('2026-01-15 13:00:00') }
       end
-      
+
       # 指定された時刻からjson_dateを生成
       json_date { AmedasRecord.time_to_hourly_json_date(time) }
     end

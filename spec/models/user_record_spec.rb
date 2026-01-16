@@ -7,7 +7,7 @@ RSpec.describe UserRecord, type: :model do
     let(:snow_station) { create(:snow_station) }
     let(:station_number) { snow_station.station_number }
     let(:current_time) { Time.zone.parse('2025-01-15 15:00:00') }
-    
+
     context '積雪深を補完して取得' do
     # テストデータの時刻を定義
     let(:time_13_00) { Time.zone.parse('2026-01-15 13:00:00') }
@@ -24,7 +24,7 @@ RSpec.describe UserRecord, type: :model do
              time: time_13_00,
              snow: 30)
     end
-    
+
     let!(:amedas_record_14_00) do
       create(:amedas_record, :at_time,
              snow_station: snow_station,
@@ -42,7 +42,7 @@ RSpec.describe UserRecord, type: :model do
     end
 
       it 'start_snow_depthが正しく計算される' do # 13:30 - 14:45 の間で雪かきを実施した想定
-      # user_recordを作成
+        # user_recordを作成
         user_record = create(:user_record,
                             user: user,
                             snow_station: snow_station,
@@ -56,7 +56,7 @@ RSpec.describe UserRecord, type: :model do
         user_record.save!
         expect(user_record.start_snow_depth).to eq(35)
       end
-      
+
       it 'end_snow_depthが正しく計算される' do
         # 13:30 - 14:45 の雪かきを実施した想定
         user_record = create(:user_record,
@@ -70,10 +70,9 @@ RSpec.describe UserRecord, type: :model do
         # 60cm - {(60cm - 40cm) / 60minute} * 45minite = 60 - {20 * (45 / 60 )} = 55
         user_record.end_snow_depth = user_record.calculate_snow_depth(user_record.end_time)
         user_record.save!
-        
+
         expect(user_record.end_snow_depth).to eq(55)
       end
     end
   end
 end
-
