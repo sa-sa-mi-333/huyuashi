@@ -1,0 +1,7 @@
+<% @user_records.each do |user_record| %>
+  <%= "観測地点：#{user_record.snow_station.prefecture}・#{user_record.snow_station.station_name}" %><br>
+  <%= "雪かき開始時積雪深：#{user_record.start_snow_depth.nil? ? "計算中…" : user_record.start_snow_depth} cm" %><br>
+  <%= "雪かき終了時積雪深：#{user_record.end_snow_depth.nil? ? "計算中…" : user_record.end_snow_depth} cm" %><br>
+  <%= "雪かき時間：#{user_record.start_time.strftime("%Y/%m/%d %H:%M")} 〜 
+  #{user_record.end_time.nil? ? "雪かき中…" : user_record.end_time.strftime("%Y/%m/%d %H:%M")}" %><br>
+<% end %>
