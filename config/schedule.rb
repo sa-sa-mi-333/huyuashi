@@ -38,6 +38,6 @@ every "8 * * * *" do
 end
 
 # ログローテーション(毎日0時に実行)
-every 1.day, at: '0:00 am' do
+every 1.day, at: "0:00 am" do
   command "mv log/cron.log log/cron.log.$(date +\\%Y\\%m\\%d) 2>&1"
 end
