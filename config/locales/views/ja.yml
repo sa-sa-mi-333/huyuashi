@@ -24,6 +24,7 @@ ja:
   user_statuses:
     select_station:
       title: "観測地点選択"
+
   static_pages:
     before_login:
       title: "トップページ(未ログイン)"
@@ -31,4 +32,7 @@ ja:
       title: "プライバシーポリシー"
     service_of_term:
       title: "利用規約"
-      
+  
+  user_records:
+    index:
+      title: "雪かき記録一覧"

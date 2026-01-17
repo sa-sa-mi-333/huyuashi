@@ -1,0 +1,13 @@
+  <% content_for(:title, t('.title')) %>
+
+<div class="max-w-md p-6 mx-auto border rounded-md shadow-lg border-gray-500/20 backdrop-blur-lg bg-gray-50/10">
+  <% @user_records.each do |user_record| %>
+    <div class="my-2 p-2 outline-1">
+      <%= user_record.start_time.strftime("%Y/%m/%d") %><br>
+      観測地点: <%= "#{user_record.snow_station.prefecture}・#{user_record.snow_station.station_name}" %><br>
+      積雪深: <%= user_record.start_snow_depth ? "#{user_record.start_snow_depth} cm 時点で開始しました" : "計算中…" %><br>
+      作業時間: <%= user_record.end_time ? Time.at(user_record.end_time - user_record.start_time).utc.strftime("%H:%M") : "雪かき中…" %>
+      (<%= user_record.start_time.strftime("%H:%M") %> 〜 <%= user_record.end_time ? user_record.end_time.strftime("%H:%M") : "" %>)
+    </div>
+  <% end %>
+</div>

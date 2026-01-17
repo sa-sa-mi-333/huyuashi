@@ -2,6 +2,11 @@ class UserRecordsController < ApplicationController
   # ログイン後のみ
   before_action :authenticate_user!
 
+  def index
+    @user_records = current_user.user_records
+  end
+
+
   def new
     @user_record = UserRecord.new
   end
