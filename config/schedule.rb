@@ -34,11 +34,10 @@ set :output, "#{Rails.root}/log/cron.log"
 
 # 毎時8分に実行
 every "8 * * * *" do
-  rake "amedas:import"
-  rake "user_records:calculate_snow_depths"
+  rake "amedas:import && rake user_records:calculate_snow_depths"
 end
 
 # ログローテーション(毎日0時に実行)
-every 1.day, at: "0:00 am" do
-  command "cd #{Rails.root} && mv log/cron.log log/cron.log.$(date +\\%Y\\%"
+every 1.day, at: '0:00 am' do
+  command "mv log/cron.log log/cron.log.$(date +\\%Y\\%m\\%d) 2>&1"
 end
