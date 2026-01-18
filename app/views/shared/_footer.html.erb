@@ -1,29 +1,32 @@
 <div class="bg-[#004681] text-[#f6f5fa] px-5 py-2">
-  <div class="flex items-center justify-center bg-transparent gap-15">
-
-    <div class="opacity-50 cursor-pointer transition w-12
-                hover:opacity-100 hover:drop-shadow-[5px_5px_1px_rgba(0,0,0,0.5)]">
-      <%= link_to authenticated_root_path do %>
-        <%= svg_tag "home" %>
-      <% end %>
-    </div>
-    <div class="opacity-50 cursor-pointer transition w-12
-                hover:opacity-100 hover:drop-shadow-[5px_5px_1px_rgba(0,0,0,0.5)]">
-      <%= link_to select_station_user_status_path do %>
-        <%= svg_tag "station"%>
-      <% end %>
-    </div>
-    <div class="opacity-50 cursor-pointer transition w-12
-                hover:opacity-100 hover:drop-shadow-[5px_5px_1px_rgba(0,0,0,0.5)]">
-      <%= link_to user_records_path do %>
-        <%= svg_tag "log"%>
-      <% end %>
-    </div>
-    <div class="opacity-50 cursor-pointer transition w-12
-                hover:opacity-100 hover:drop-shadow-[5px_5px_1px_rgba(0,0,0,0.5)]">
-      <%= link_to "#" do %>
-        <%= svg_tag "profile"%>
-      <% end %>
-    </div>
+  <div class="flex items-center justify-center bg-transparent gap-15 h-12">
+    <!-- メニュー項目の表示/非表示をログイン状態に応じて切り替える -->
+    <% if user_signed_in? %>
+      <!-- ログイン時： -->
+      <div class="opacity-50 cursor-pointer transition w-12
+                  hover:opacity-100 hover:drop-shadow-[5px_5px_1px_rgba(0,0,0,0.5)]">
+        <%= link_to authenticated_root_path do %>
+          <%= svg_tag "home" %>
+        <% end %>
+      </div>
+      <div class="opacity-50 cursor-pointer transition w-12
+                  hover:opacity-100 hover:drop-shadow-[5px_5px_1px_rgba(0,0,0,0.5)]">
+        <%= link_to select_station_user_status_path do %>
+          <%= svg_tag "station"%>
+        <% end %>
+      </div>
+      <div class="opacity-50 cursor-pointer transition w-12
+                  hover:opacity-100 hover:drop-shadow-[5px_5px_1px_rgba(0,0,0,0.5)]">
+        <%= link_to user_records_path do %>
+          <%= svg_tag "log"%>
+        <% end %>
+      </div>
+      <div class="opacity-50 cursor-pointer transition w-12
+                  hover:opacity-100 hover:drop-shadow-[5px_5px_1px_rgba(0,0,0,0.5)]">
+        <%= link_to "#" do %>
+          <%= svg_tag "profile"%>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </div>
