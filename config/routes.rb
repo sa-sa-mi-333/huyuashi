@@ -43,6 +43,8 @@ Rails.application.routes.draw do
   # static_pagesのルーティング
   # プライバシーポリシー
   get "static_pages/privacy_policy"
-  # お問い合わせ
+  # 利用規約
   get "static_pages/service_of_term"
+  # お問い合わせ
+  get "static_pages/contact_us"
 end
