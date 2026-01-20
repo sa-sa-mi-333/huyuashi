@@ -1,8 +1,9 @@
 # huyuashi
 # ふゆあし
-### 冬の足跡、残そう。
-[URL](https://huyuashi.onrender.com)
-(サムネイル画像準備でき次第追加)
+### 冬の足跡、のこそう。
+[https://huyuashi.onrender.com](https://huyuashi.onrender.com)
+
+[![Image from Gyazo](https://i.gyazo.com/9fc35f3db0accbbeea571067d3255045.png)](https://gyazo.com/9fc35f3db0accbbeea571067d3255045)<br>
 
 ## サービス概要
 雪かき作業記録アプリです。積雪情報と雪かきの時間を記録することで、日々の頑張りを見える形で残します。また、記録と積雪予想を元に作業時間予想を立てて冬の生活をサポートします。
@@ -58,7 +59,7 @@ MVPリリース
 
 本リリースまでに追加内容(予定)
 - [ ] レスポンシブデザイン対応などUI整備(tailwindcss-rails)
-- [ ] お問い合わせページ作成
+- [x] お問い合わせページ作成
 - [ ] プライバシーポリシーページ作成
 - [ ] 利用規約ページ作成
 - [ ] 雪かきログの視覚最適化(chartkick)
@@ -89,4 +90,4 @@ MVPリリース
 [figma](https://www.figma.com/design/72tcu2TC9kywHrBiM5Tw8D/%E3%81%B5%E3%82%86%E3%81%82%E3%81%97-%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?node-id=0-1&t=4a4ZDT167KoxGeQB-1)
 
 ## ER図
-[![Image from Gyazo](https://i.gyazo.com/4e9d2363190687b6d757b448b195bbe8.png)](https://gyazo.com/4e9d2363190687b6d757b448b195bbe8)
+[![Image from Gyazo](https://i.gyazo.com/bea36a1e20b7c6116fa02344d0622ce8.png)](https://gyazo.com/bea36a1e20b7c6116fa02344d0622ce8)

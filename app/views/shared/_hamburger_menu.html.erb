@@ -5,32 +5,32 @@
       <% if user_signed_in? %>
         <!-- ログイン時： -->
         <ul class="flex items-center hamburger-content">
-          <div class="text-[#004681] w-12 h-auto pl-4"><%= svg_tag "information"%></div>
+          <div class="text-[#004681] w-12 h-auto pl-4"><%= svg_tag "icons/information"%></div>
           <div><%= link_to "プライバシーポリシー", static_pages_privacy_policy_path %></div>
         </ul>
         <ul class="flex items-center hamburger-content">
-          <div class="text-[#004681] w-12 h-auto pl-4"><%= svg_tag "information"%></div>
+          <div class="text-[#004681] w-12 h-auto pl-4"><%= svg_tag "icons/information"%></div>
           <div><%= link_to "利用規約", static_pages_service_of_term_path %></div>
         </ul>
         <ul class="flex items-center hamburger-content">
-          <div class="text-[#004681] w-12 h-auto pl-4"><%= svg_tag "mail"%></div>
+          <div class="text-[#004681] w-12 h-auto pl-4"><%= svg_tag "icons/mail"%></div>
           <div><%= link_to "お問い合わせ", static_pages_contact_us_path %></div>
         </ul>
         <ul class="flex items-center hamburger-content">
-          <div class="text-[#004681] w-12 h-auto pl-4"><%= svg_tag "logout" %></div>
+          <div class="text-[#004681] w-12 h-auto pl-4"><%= svg_tag "icons/logout" %></div>
           <div><%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete } %></div>
         </ul>
       <% else %>
         <ul class="flex items-center hamburger-content">
-          <div class="text-[#004681] w-12 h-auto pl-4"><%= svg_tag "login" %></div>
+          <div class="text-[#004681] w-12 h-auto pl-4"><%= svg_tag "icons/login" %></div>
           <div><%= link_to "ログイン", user_session_path %></div>
         </ul>
         <ul class="flex items-center hamburger-content">
-          <div class="text-[#004681] w-12 h-auto pl-4"><%= svg_tag "information"%></div>
+          <div class="text-[#004681] w-12 h-auto pl-4"><%= svg_tag "icons/information"%></div>
           <div><%= link_to "プライバシーポリシー", static_pages_privacy_policy_path %></div>
         </ul>
         <ul class="flex items-center hamburger-content">
-          <div class="text-[#004681] w-12 h-auto pl-4"><%= svg_tag "information"%></div>
+          <div class="text-[#004681] w-12 h-auto pl-4"><%= svg_tag "icons/information"%></div>
           <div><%= link_to "利用規約", static_pages_service_of_term_path %></div>
         </ul>
       <% end %>

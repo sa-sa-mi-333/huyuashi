@@ -20,7 +20,7 @@ module ApplicationHelper
 
   # ファイル名とオプションを指定してsvg画像をインライン要素として読み込む
   def svg_tag(filename, options = {})
-    path = Rails.root.join("app/assets/images/icons", "#{filename}.svg")
+    path = Rails.root.join("app/assets/images", "#{filename}.svg")
     if File.exist?(path)
       File.read(path).html_safe
     else
